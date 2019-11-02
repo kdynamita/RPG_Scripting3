@@ -4,13 +4,21 @@ using UnityEngine;
 
 public enum state
 {
+    #region - - - - Overworld States - - - - 
     idle,
     walking,
     climbing,
+    #endregion
 
+    #region - - - - - Battle States - - - - - 
+    active,
+    hurt,
+    whiffed,
     attack,
     defend,
     counter,
+    #endregion
+
 }
 
 public class PlayerController : MonoBehaviour
@@ -21,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public bool paused;
 
+    public state state;
 
 
     // Start is called before the first frame update
@@ -29,6 +38,7 @@ public class PlayerController : MonoBehaviour
         //action = Toolbox.GetInstance().GetAction();
         //stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody>();
+        state = state.idle;
     }
 
     // Update is called once per frame
