@@ -9,16 +9,6 @@ public enum state
     walking,
     climbing,
     #endregion
-
-    #region - - - - - Battle States - - - - - 
-    active,
-    hurt,
-    whiffed,
-    attack,
-    defend,
-    counter,
-    #endregion
-
 }
 
 public class PlayerController : MonoBehaviour

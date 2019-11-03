@@ -3,47 +3,53 @@ guid: 07836ff48eb710b4caaee725e06aaf47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4268034923782288845
-    second: RPG_Icons_0
+      213: -8922017037155207030
+    second: EmptyHeart
   - first:
-      213: 5968011850415198367
-    second: RPG_Icons_1
+      213: -2282046923725416553
+    second: PlayerHeart
   - first:
-      213: -2417031985777901976
-    second: RPG_Icons_2
+      213: 2567235717235552270
+    second: EnemyHeart
   - first:
-      213: 1818784667357753642
-    second: RPG_Icons_3
+      213: -5932940965895017191
+    second: Mana
   - first:
-      213: 7112595738549425011
-    second: RPG_Icons_4
+      213: 1008871953538273300
+    second: Shield1
   - first:
-      213: -3004536633654709871
-    second: RPG_Icons_5
+      213: 8543412109613828998
+    second: Shield2
   - first:
-      213: -7443305112787735151
-    second: RPG_Icons_6
+      213: 3575573264595905874
+    second: Shield3
   - first:
-      213: 2972903033367024253
-    second: RPG_Icons_7
+      213: -6661667503163661122
+    second: Sword1
   - first:
-      213: -6419186724187325103
-    second: RPG_Icons_8
+      213: 8917703099049592933
+    second: Sword2
   - first:
-      213: 2040579403600408423
-    second: RPG_Icons_9
+      213: 645793739151404868
+    second: Sword3
   - first:
-      213: 5624459819364031285
-    second: RPG_Icons_10
+      213: -3401554771382051183
+    second: Counter1
   - first:
-      213: -5524522229452102124
-    second: RPG_Icons_11
+      213: 1006345212636142835
+    second: Counter2
   - first:
-      213: -847210359269112304
-    second: RPG_Icons_12
+      213: 5532852536084622505
+    second: Counter3
   - first:
-      213: 7627796343527144636
-    second: RPG_Icons_13
+      213: 2838681010091129302
+    second: Square
+  - first:
+      213: 7186223825358793108
+    second: Circle
+  - first:
+      213: -6962867327966463816
+    second: Dizzy
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -128,28 +134,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RPG_Icons_0
+      name: EmptyHeart
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd787fb121f3c4a46b03d7d48437692b
-      internalID: 4268034923782288845
+      spriteID: 2bdfd17cd5b75e1418487b6d22c7602e
+      internalID: -8922017037155207030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_1
+      name: PlayerHeart
       rect:
         serializedVersion: 2
         x: 32
@@ -157,20 +163,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0628dfaf05162c4fb76f9e020e7fbc1
-      internalID: 5968011850415198367
+      spriteID: 44bea1c6a69bfb14aa260a9822146f82
+      internalID: -2282046923725416553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_2
+      name: EnemyHeart
       rect:
         serializedVersion: 2
         x: 64
@@ -178,20 +184,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c26200281dcb00344a51ae251f9c0b2e
-      internalID: -2417031985777901976
+      spriteID: c45bf6fcbfc9b204b94d65f73ea20c24
+      internalID: 2567235717235552270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_3
+      name: Mana
       rect:
         serializedVersion: 2
         x: 96
@@ -199,20 +205,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f422f33eafb11c748813b5671f6c8a02
-      internalID: 1818784667357753642
+      spriteID: a68c3c4a22ef5df47a93caf9fa793155
+      internalID: -5932940965895017191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_4
+      name: Shield1
       rect:
         serializedVersion: 2
         x: 128
@@ -220,20 +226,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 797d23c2f01b6474db501e26c03d1fc4
-      internalID: 7112595738549425011
+      spriteID: a762242cec3f4c943abe252e81eeaa25
+      internalID: 1008871953538273300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_5
+      name: Shield2
       rect:
         serializedVersion: 2
         x: 160
@@ -241,20 +247,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152202e8e74a22649847ef3d19fea214
-      internalID: -3004536633654709871
+      spriteID: 89165feb1706cca40a8f28f9ec20e57e
+      internalID: 8543412109613828998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_6
+      name: Shield3
       rect:
         serializedVersion: 2
         x: 192
@@ -262,20 +268,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb2ac1ba62ab50846a33543dcb623ef9
-      internalID: -7443305112787735151
+      spriteID: eb6d30acb7cc61b468f23ed8dc4d8c9f
+      internalID: 3575573264595905874
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_7
+      name: Sword1
       rect:
         serializedVersion: 2
         x: 224
@@ -283,20 +289,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ce854b76387a6342919680754110b13
-      internalID: 2972903033367024253
+      spriteID: 57202b222b7890a4ebad633c53855372
+      internalID: -6661667503163661122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_8
+      name: Sword2
       rect:
         serializedVersion: 2
         x: 256
@@ -304,20 +310,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3842e5b7f4581264d9e27b476df43094
-      internalID: -6419186724187325103
+      spriteID: 1b43fbec59dce46478e80cc82cd13e7d
+      internalID: 8917703099049592933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_9
+      name: Sword3
       rect:
         serializedVersion: 2
         x: 288
@@ -325,20 +331,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a8686a37bd80ca459f86b919c1eccec
-      internalID: 2040579403600408423
+      spriteID: 9ab39b9acf41ef645ae380ca630989c0
+      internalID: 645793739151404868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_10
+      name: Counter1
       rect:
         serializedVersion: 2
         x: 320
@@ -346,20 +352,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d5b0ac6afc0d7c43a81d51e283d5e4b
-      internalID: 5624459819364031285
+      spriteID: 82ebd1f73a20af64a96fcd2ce4288f93
+      internalID: -3401554771382051183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_11
+      name: Counter2
       rect:
         serializedVersion: 2
         x: 352
@@ -367,20 +373,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0aaf113edf3ce824f8878d518ecc4f11
-      internalID: -5524522229452102124
+      spriteID: 3214f65fb102c384a98921ca6d8ccf22
+      internalID: 1006345212636142835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_12
+      name: Counter3
       rect:
         serializedVersion: 2
         x: 384
@@ -388,20 +394,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ea87aec00ba4534f87c7f3cb686bb6d
-      internalID: -847210359269112304
+      spriteID: 421249e3bb88f8a41aa13c642df9057e
+      internalID: 5532852536084622505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RPG_Icons_13
+      name: Square
       rect:
         serializedVersion: 2
         x: 416
@@ -409,14 +415,56 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94bbc0b69fa7fdc42a381f48ad76172b
-      internalID: 7627796343527144636
+      spriteID: e4fcc8ab3805b8049b56d7d21b8063f5
+      internalID: 2838681010091129302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Circle
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aaf3c954a8ae8c46a43c83e6b7356d5
+      internalID: 7186223825358793108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dizzy
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02befb370d875a742a0853887644c58e
+      internalID: -6962867327966463816
       vertices: []
       indices: 
       edges: []
