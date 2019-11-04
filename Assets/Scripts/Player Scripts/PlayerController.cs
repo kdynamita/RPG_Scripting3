@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public PlayerAction action;
     public Stats stats;
 
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     public bool paused;
 
     public state state;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         action = Toolbox.GetInstance().GetAction();
         //stats = GetComponent<Stats>();
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         state = state.idle;
     }
 
@@ -47,29 +47,34 @@ public class PlayerController : MonoBehaviour
     #region - - - - - - ACTION FUNCTIONS - - - - - 
     void Movement()
     {
+
+
         // Movement Code
         if (action.moveDir.x != 0)
         {
             transform.rotation = Quaternion.Euler(action.rotation);
-            //transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
-            transform.Translate(action.moveDir.x * stats.spd * Time.deltaTime, 0f, 0f);
-            //rb.AddForce(action.moveDir.x, action.moveDir.y, action.moveDir.z * speed * Time.deltaTime);
+            transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
+            //transform.Translate(action.moveDir.x * stats.spd * Time.deltaTime   , 0f, 0f);
+            //transform.position += action.moveDir * Mathf.RoundToInt(stats.spd * Time.deltaTime);
+
+
+
+
         }
         else {
             transform.Translate(Vector3.zero);
-            //rb.velocity = Vector3.zero;
         }
 
         if (canClimb)
         {
             transform.Translate(0f, action.moveDir.y * stats.spd * Time.deltaTime, 0f);
-            rb.useGravity = false;
+            rb.gravityScale = 0;
         }
 
         else if (!canClimb)
         {
             transform.Translate(Vector3.zero);
-            rb.useGravity = true;
+            rb.gravityScale = 1;
         }
 
     }

@@ -15,9 +15,9 @@ MonoBehaviour:
   type: Player
   hp: 5
   maxHp: 5
-  sp: 0
-  maxSp: 0
+  sp: 3
+  maxSp: 3
   str: 1
   def: 1
   dex: 1
-  spd: 5
+  spd: 2
