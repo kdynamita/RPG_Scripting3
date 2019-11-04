@@ -26,7 +26,7 @@ public class PlayerAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //input = GameObject.Find("Manager").GetComponent<PlayerInput>();
+        input = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -48,19 +48,35 @@ public class PlayerAction : MonoBehaviour
 
     void SetDirection()
     {
+        // move player up
+        if (Input.GetKey(input.up))
+        {
+            moveDir += Vector3.up;
+        }
 
-        if (Input.GetKey(input.left))
+        // move player down
+        else if (Input.GetKey(input.down))
+        {
+            moveDir += Vector3.down;
+        }
+
+        //move player left
+        else if (Input.GetKey(input.left))
         {
             // turn player to right
             rotation = new Vector3(0f, 180f, 0f);
             moveDir -= Vector3.left;
         }
+
+        //move player right
         else if (Input.GetKey(input.right))
         {
             // turn player to left
             rotation = Vector3.zero;
             moveDir += Vector3.right;
         }
+
+        //stop movement
         else
         {
             moveDir = Vector3.zero;
@@ -71,7 +87,6 @@ public class PlayerAction : MonoBehaviour
 
     void DetectActions()
     {
-        // - - - - Movement Actions - - - - 
         confirm = Input.GetKey(input.confirm);
         cancel = Input.GetKey(input.cancel);
         menu = Input.GetKey(input.menu);
@@ -86,5 +101,6 @@ public class PlayerAction : MonoBehaviour
         block = Input.GetKey(input.defend);
         parry = Input.GetKey(input.counter);
     }
+
 
 }

@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
 
     public state state;
 
+    public bool canClimb;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        //action = Toolbox.GetInstance().GetAction();
+        action = Toolbox.GetInstance().GetAction();
         //stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody>();
         state = state.idle;
@@ -46,15 +48,28 @@ public class PlayerController : MonoBehaviour
     void Movement()
     {
         // Movement Code
-        if (action.moveDir != Vector3.zero)
+        if (action.moveDir.x != 0)
         {
             transform.rotation = Quaternion.Euler(action.rotation);
-            transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
+            //transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
+            transform.Translate(action.moveDir.x * stats.spd * Time.deltaTime, 0f, 0f);
             //rb.AddForce(action.moveDir.x, action.moveDir.y, action.moveDir.z * speed * Time.deltaTime);
         }
         else {
             transform.Translate(Vector3.zero);
             //rb.velocity = Vector3.zero;
+        }
+
+        if (canClimb)
+        {
+            transform.Translate(0f, action.moveDir.y * stats.spd * Time.deltaTime, 0f);
+            rb.useGravity = false;
+        }
+
+        else if (!canClimb)
+        {
+            transform.Translate(Vector3.zero);
+            rb.useGravity = true;
         }
 
     }
@@ -102,4 +117,31 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Toolbox.GetInstance().GetEvent().player = this.gameObject;
+            Toolbox.GetInstance().GetEvent().enemyUnit = other.gameObject;
+            Toolbox.GetInstance().GetEvent().BattleEncounter();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            canClimb = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            canClimb = false;
+        }
+    }
+
 }
