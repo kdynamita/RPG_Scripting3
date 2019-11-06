@@ -34,7 +34,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    //{
+    //    RunStates();
+    //}
+
+    private void FixedUpdate()
     {
         RunStates();
     }
@@ -53,7 +58,8 @@ public class PlayerController : MonoBehaviour
         if (action.moveDir.x != 0)
         {
             transform.rotation = Quaternion.Euler(action.rotation);
-            transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
+            //transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
+            transform.Translate(action.moveDir * stats.spd);
             //transform.Translate(action.moveDir.x * stats.spd * Time.deltaTime   , 0f, 0f);
             //transform.position += action.moveDir * Mathf.RoundToInt(stats.spd * Time.deltaTime);
 

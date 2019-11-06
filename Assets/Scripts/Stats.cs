@@ -16,6 +16,6 @@ public class Stats : ScriptableObject
     public int def;
     public int dex;
     [Space]
-    public int spd;
+    public float spd;
 
 }
