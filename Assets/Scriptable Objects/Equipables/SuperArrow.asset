@@ -9,17 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e8e0afee6bfdb41a7235be0f0dcfed, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
+  m_Name: SuperArrow
   m_EditorClassIdentifier: 
-  type: Player
-  lvl: 0
-  exp: 0
-  lvlUp: 0
-  hp: 10
-  maxHp: 10
-  str: 0
-  def: 1
-  dex: 1
-  spd: 3
-  weapon: {fileID: 11400000, guid: ede1f8aa14f07a143ac15df95156e728, type: 2}
+  type: SuperArrow
+  strength: 3
+  wpnSprite: {fileID: 0}

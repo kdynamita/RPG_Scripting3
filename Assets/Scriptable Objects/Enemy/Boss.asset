@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   type: Boss
-  hp: 20
-  maxHp: 20
-  sp: 0
-  maxSp: 0
-  str: 2
-  def: 2
-  dex: 2
+  lvl: 3
+  exp: 20
+  lvlUp: 21
+  hp: 15
+  maxHp: 15
+  str: 1
+  def: 3
+  dex: 3
   spd: 1
+  weapon: {fileID: 11400000, guid: 0bb2f6b296a4ec7419e6e1ef73894903, type: 2}

@@ -17,11 +17,12 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void BattleEncounter()
     {
+        Debug.Log("Entering Battle");
         SceneManager.LoadScene("Battle");
     }
 }

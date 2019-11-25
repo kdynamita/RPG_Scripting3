@@ -7,6 +7,7 @@ public enum state
     #region - - - - Overworld States - - - - 
     idle,
     walking,
+    blocking,
     climbing,
     #endregion
 }
@@ -23,18 +24,29 @@ public class PlayerController : MonoBehaviour
 
     public bool canClimb;
 
+    public GameObject bulletSpawn;
+    public float shootDelay;
+    public int shootCount;
+
+    public Inventory inventory;
+
+    public Animator anim;
+
+    [SerializeField] private state pState;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        action = Toolbox.GetInstance().GetAction();
+        action = GetComponent<PlayerAction>();
         //stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody2D>();
         state = state.idle;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RunStates();
     }
@@ -42,27 +54,24 @@ public class PlayerController : MonoBehaviour
     void RunStates()
     {
         Movement();
+        Shoot();
+        Block();
     }
 
     #region - - - - - - ACTION FUNCTIONS - - - - - 
     void Movement()
     {
-
-
         // Movement Code
         if (action.moveDir.x != 0)
         {
             transform.rotation = Quaternion.Euler(action.rotation);
-            transform.Translate(action.moveDir * stats.spd * Time.deltaTime);
-            //transform.Translate(action.moveDir.x * stats.spd * Time.deltaTime   , 0f, 0f);
-            //transform.position += action.moveDir * Mathf.RoundToInt(stats.spd * Time.deltaTime);
+            bulletSpawn.transform.rotation = Quaternion.Euler(action.rotation);
 
-
-
-
+            if (pState != state.blocking) 
+                rb.velocity = new Vector2(action.moveDir.x * stats.spd, 0f);
         }
         else {
-            transform.Translate(Vector3.zero);
+            rb.velocity = Vector2.zero;
         }
 
         if (canClimb)
@@ -79,59 +88,46 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void BattleActions()
+    void Shoot()
     {
-        if (action.canAct)
-        {
-            if (action.slash)
-            {
-                //do attack
-            }
+        if (action.attack && shootCount > 0) {
+            shootCount -= 1;
+            GameObject go = new GameObject("Arrow");
+            go.transform.position = bulletSpawn.transform.position;
+            go.transform.rotation = bulletSpawn.transform.rotation;
+            go.AddComponent<Projectile>();
+            go.AddComponent<Rigidbody2D>();
+            go.AddComponent<SpriteRenderer>();
+            go.GetComponent<SpriteRenderer>().sprite = inventory.eWpn;
+            StartCoroutine(ShootRecover());
 
-            else if (action.block)
-            {
-                //do defend
-            }
+        } else {
 
-            else if (action.parry)
-            {
-                //do counter
-            }
+            return;
+        }
+        
+    }
 
+    void Block()
+    {
+        if (action.defend) {
+            pState = state.blocking;
+            anim.SetBool("isBlocking", true);
+        }
 
+        else {
+            pState = state.idle;
+            anim.SetBool("isBlocking", false);
         }
     }
+
+    public IEnumerator ShootRecover()
+    {
+        yield return new WaitForSeconds(shootDelay);
+        shootCount = 1;
+    }
+
     #endregion
-
-    #region - - - - - Pause / Unpause - - - - - 
-    public void PauseGame()
-    {
-        if (action.pause)
-        {
-            if (!paused)
-            {
-                paused = true;
-                Time.timeScale = 0;
-            }
-
-            else if (paused)
-            {
-                paused = false;
-                Time.timeScale = 1;
-            }
-        }
-    }
-    #endregion
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Toolbox.GetInstance().GetEvent().player = this.gameObject;
-            Toolbox.GetInstance().GetEvent().enemyUnit = other.gameObject;
-            Toolbox.GetInstance().GetEvent().BattleEncounter();
-        }
-    }
 
     private void OnTriggerStay(Collider other)
     {

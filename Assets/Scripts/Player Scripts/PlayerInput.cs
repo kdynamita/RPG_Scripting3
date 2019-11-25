@@ -8,9 +8,7 @@ public class PlayerInput : MonoBehaviour
     public KeyCode down;
     public KeyCode left;
     public KeyCode right;
-    public KeyCode confirm;
-    public KeyCode cancel;
-    public KeyCode interact;
+
     public KeyCode menu;
     public KeyCode pause;
 
@@ -27,19 +25,14 @@ public class PlayerInput : MonoBehaviour
         right = KeyCode.D;
         #endregion
 
-        #region - - - - - Exploration Inputs - - - - -
-        confirm = KeyCode.K;
-        cancel = KeyCode.J;
+        #region - - - - - Action Inputs - - - - -
+        defend = KeyCode.K;
+        attack = KeyCode.J;
         menu = KeyCode.I;
 
         pause = KeyCode.Space;
         #endregion
 
-        #region - - - - - Battle Inputs - - - - - 
-        attack = KeyCode.L;
-        defend = KeyCode.J;
-        counter = KeyCode.I;
-        #endregion
 
     }
 }

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50e8e0afee6bfdb41a7235be0f0dcfed, type: 3}
-  m_Name: Player
+  m_Name: MidDefender
   m_EditorClassIdentifier: 
-  type: Player
-  lvl: 0
-  exp: 0
-  lvlUp: 0
-  hp: 10
-  maxHp: 10
-  str: 0
-  def: 1
-  dex: 1
-  spd: 3
-  weapon: {fileID: 11400000, guid: ede1f8aa14f07a143ac15df95156e728, type: 2}
+  type: Defender
+  lvl: 2
+  exp: 3
+  lvlUp: 4
+  hp: 8
+  maxHp: 8
+  str: 1
+  def: 2
+  dex: 2
+  spd: 1
+  weapon: {fileID: 11400000, guid: ddb46b836bd9b0c46af10d675f005acc, type: 2}

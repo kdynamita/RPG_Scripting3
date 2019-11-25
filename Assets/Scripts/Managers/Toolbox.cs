@@ -28,7 +28,6 @@ public class Toolbox : MonoBehaviour
     private EventManager eventManager;
     private PlayerInput playerInput;
     private PlayerAction playerAction;
-    private GameObject player;
 
 
     // Before the game starts, check if a Toolbox instance already exists

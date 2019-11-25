@@ -9,13 +9,9 @@ public class PlayerAction : MonoBehaviour
     public Vector3 moveDir;
     public Vector3 rotation;
 
-    private bool confirm;
-    private bool cancel;
-    private bool menu;
-
-    public bool slash;
-    public bool block;
-    public bool parry;
+    public bool attack;
+    public bool defend;
+    public bool menu;
 
     public bool canMove = true;
     public bool canAct = false;
@@ -40,9 +36,6 @@ public class PlayerAction : MonoBehaviour
                 SetDirection();
                 DetectActions();
             }
-            if (canAct) {
-                DetectBattle();
-            }
         }
     }
 
@@ -65,7 +58,7 @@ public class PlayerAction : MonoBehaviour
         {
             // turn player to right
             rotation = new Vector3(0f, 180f, 0f);
-            moveDir -= Vector3.left;
+            moveDir += Vector3.left;
         }
 
         //move player right
@@ -73,7 +66,7 @@ public class PlayerAction : MonoBehaviour
         {
             // turn player to left
             rotation = Vector3.zero;
-            moveDir += Vector3.right;
+            moveDir -= Vector3.left;
         }
 
         //stop movement
@@ -87,20 +80,12 @@ public class PlayerAction : MonoBehaviour
 
     void DetectActions()
     {
-        confirm = Input.GetKey(input.confirm);
-        cancel = Input.GetKey(input.cancel);
+        attack = Input.GetKey(input.attack);
+        defend = Input.GetKey(input.defend);
         menu = Input.GetKey(input.menu);
 
         // - - - Pause / Unpause - - - 
         pause = Input.GetKeyDown(input.pause);
     }
-
-    void DetectBattle()
-    {
-        slash = Input.GetKey(input.attack);
-        block = Input.GetKey(input.defend);
-        parry = Input.GetKey(input.counter);
-    }
-
 
 }
