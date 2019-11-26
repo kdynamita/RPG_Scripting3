@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Enemy : MonoBehaviour
+public class Enemy : PlayerController
 {
-    public Stats stats;
-
-    public state state;
     public GameObject player;
     
     // Start is called before the first frame update
@@ -24,6 +21,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void RunState()
+    {
+
+    }
+
+    public override void Movement()
+    {
+        base.Movement();
+    }
+
+    public override void Block()
+    {
+        base.Block();
+    }
+
+    public override void Shoot()
+    {
+        base.Shoot();
+    }
 
 
     public void CheckStats()

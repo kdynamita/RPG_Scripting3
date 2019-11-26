@@ -45,8 +45,15 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Enemy")) {
             other.GetComponent<Enemy>().stats.hp -= damage;
             other.GetComponent<Enemy>().CheckStats();
+
         } else if (other.CompareTag("Player")) {
-            other.GetComponent<PlayerController>().stats.hp -= damage;
+            state pState = other.GetComponent<PlayerController>().state;
+            if (pState != state.blocking) {
+                other.GetComponent<PlayerController>().stats.hp -= damage;
+            } else {
+                damage -= other.GetComponent<PlayerController>().stats.def;
+                other.GetComponent<PlayerController>().stats.hp -= damage;
+            }
         }
 
         Debug.Log(other.name);

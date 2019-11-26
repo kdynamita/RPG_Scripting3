@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #region - - - - - - ACTION FUNCTIONS - - - - - 
-    void Movement()
+    public virtual void Movement()
     {
         // Movement Code
         if (action.moveDir.x != 0)
@@ -89,9 +89,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void Shoot()
+    public virtual void Shoot()
     {
-        if (action.attack && shootCount > 0 && pState != state.blocking) {
+        if (action.attack && shootCount > 0 && pState != state.blocking && EquipManager.instance.currentEquip[0] != null) {
             shootCount -= 1;
 
             // - - - - Create Projectile Weapon & assign this rotation & position
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
             // - - - - Add Components
             go.AddComponent<Projectile>();
-            go.GetComponent<Projectile>().damage = stats.dex;
+            go.GetComponent<Projectile>().damage = stats.dex + EquipManager.instance.currentEquip[0].damage;
             go.AddComponent<Rigidbody2D>();
 
             // - - - - Add BoxCollider & make it a Trigger
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
             // - - - - Add SpriteRenderer & assign the sprite based on inventory's equipped Weapon
             go.AddComponent<SpriteRenderer>();
-            //go.GetComponent<SpriteRenderer>().sprite = invUI.eWpnSprite;
+            go.GetComponent<SpriteRenderer>().sprite = EquipManager.instance.currentEquip[0].icon;
 
             StartCoroutine(ShootRecover());
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void Block()
+    public virtual void Block()
     {
 
 

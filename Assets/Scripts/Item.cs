@@ -5,7 +5,7 @@ public class Item : ScriptableObject
 {
     public string itemName;
     [Space]
-    public int potency;
+    public int value;
     [Space]
     public Sprite icon = null;
     [Space]
@@ -15,6 +15,7 @@ public class Item : ScriptableObject
     {
         // Use item
         // Make effect happen
+        
 
         Debug.Log("Using " + name);
     }
