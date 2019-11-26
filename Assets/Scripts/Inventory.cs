@@ -1,55 +1,91 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Inventory : MonoBehaviour
 {
 
-    public Weapon eWpn;
-    public Sprite eWpnSprite;
-    public Image eWpnImg;
-    public Text eWpnTxt;
+    public static Inventory instance;
+    public GameObject invUi;
 
-    public ScriptableObject eShield;
-    public Sprite eShieldSprite;
-    public Image eShieldImg;
-    public Text eShieldTxt;
+    public List<Item> items = new List<Item>();
 
 
+    private bool isActive = false;
 
-    // Start is called before the first frame update
-    void Start()
+    #region - - - - - SINGLETON - - - - - 
+    void Awake()
     {
-        
+        if (instance != null) {
+            Debug.LogWarning("Multiple instances!!");
+            return;
+        }
+
+        instance = this;
     }
+    #endregion
+
+    public delegate void OnItemChanged();
+    public OnItemChanged OnItemChangedCallback; 
+
+    public int invSpace = 20;
 
     // Update is called once per frame
     void Update()
     {
-        Equip();
-    }
-
-    void Equip()
-    {
-        if (eWpnSprite == null) {
-            eWpnSprite = eWpn.wpnSprite;
-            eWpnImg.sprite = eWpnSprite;
-            eWpnTxt.text = eWpn.wpnName;
-        }
-
-        if (Input.GetKey(KeyCode.Q)) {
-
-            
-        }
-
-        if (Input.GetKey(KeyCode.R)) {
-
+        if (Input.GetKeyDown(KeyCode.I)) {
+            ToggleInventory();
         }
     }
 
-    void AddObject()
+    void ToggleInventory()
+    {
+        if (!isActive) {
+            invUi.SetActive(true);
+            isActive = true;
+        } else if (isActive) {
+            invUi.SetActive(false);
+            isActive = false;
+        }
+    }
+
+    void EquipWeapon()
+    {
+        //eWpn = ;
+    }
+
+    void EquipShield()
+    {
+        //eShield = ;
+    }
+
+    void UsePotion()
     {
 
+    }
+
+    public bool AddItem(Item item)
+    {
+        if (!item.isDefault) {
+            if (items.Count >= invSpace) {
+                Debug.Log("Inventory is FULL!");
+                return false;
+            }
+
+            items.Add(item);
+
+            if (OnItemChangedCallback != null)
+                OnItemChangedCallback.Invoke();
+        }
+        return true;
+    }
+
+    public void RemoveItem(Item item)
+    {
+        items.Remove(item);
+
+        if (OnItemChangedCallback != null)
+            OnItemChangedCallback.Invoke();
     }
 }

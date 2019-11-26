@@ -46,8 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6661978797fb3ff46ad65a05fc2837c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: fe4bc2c9467030046ad6f2f85de28889, type: 2}
+  stats:
+    type: 
+    lvl: 0
+    exp: 0
+    lvlUp: 0
+    hp: 0
+    maxHp: 0
+    dex: 0
+    def: 0
+    spd: 0
+    weapon: {fileID: 0}
   state: 0
+  player: {fileID: 0}
 --- !u!61 &902635108
 BoxCollider2D:
   m_ObjectHideFlags: 0

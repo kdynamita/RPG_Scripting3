@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba7cae205d4d3843a6d443bdde68bfc, type: 3}
-  m_Name: BoneShield
+  m_Script: {fileID: 11500000, guid: 1964b4517154fff4185647e09a0a9f1c, type: 3}
+  m_Name: Heart
   m_EditorClassIdentifier: 
-  eName: Bone Shield
-  defense: 0
-  eSprite: {fileID: 1008871953538273300, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
+  itemName: Bled Out Heart
+  potency: 5
+  physicalRep: {fileID: 0}

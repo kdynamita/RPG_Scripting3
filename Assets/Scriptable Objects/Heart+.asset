@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
-  m_Name: BoneArrow
+  m_Script: {fileID: 11500000, guid: 1964b4517154fff4185647e09a0a9f1c, type: 3}
+  m_Name: Heart+
   m_EditorClassIdentifier: 
-  wpnName: Bone Arrow
-  damage: 0
-  wpnSprite: {fileID: -1033766676993296678, guid: 1652ec992d3c7124dbe12411f8948226,
-    type: 3}
+  itemName: Healthy Heart
+  potency: 10
+  physicalRep: {fileID: 0}

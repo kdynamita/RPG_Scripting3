@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba7cae205d4d3843a6d443bdde68bfc, type: 3}
   m_Name: SuperShield
   m_EditorClassIdentifier: 
-  eName: Cursed Shield
+  itemName: 
+  potency: 0
+  icon: {fileID: 3575573264595905874, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
+  isDefault: 0
+  equipSlot: 1
+  damage: 0
   defense: 3
-  eSprite: {fileID: 3575573264595905874, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}

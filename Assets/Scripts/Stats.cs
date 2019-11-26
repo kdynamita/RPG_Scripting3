@@ -20,7 +20,6 @@ public class Stats
     public int def;
     [Space]
     public int spd;
-    [Space]
-    public Weapon weapon;
+
 
 }

@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Equip")]
-
-public class Equip : ScriptableObject
+[CreateAssetMenu(fileName = "Equip", menuName = "ScriptableObjects/Equip")]
+[System.Serializable]
+public class Equip : Item
 {
-    public string eName;
-    [Space]
+    public EquipSlot equipSlot;
+    public int damage;
     public int defense;
-    [Space]
-    public Sprite eSprite;
+
+    public override void Use()
+    {
+        base.Use();
+        EquipManager.instance.Equip(this);
+        //Remove item
+    }
 }
+
+public enum EquipSlot
+{ weapon, shield }

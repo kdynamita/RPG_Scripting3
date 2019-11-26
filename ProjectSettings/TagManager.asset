@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - PlayerSpawn
   - EnemySpawn
+  - Interactable
   layers:
   - Default
   - TransparentFX

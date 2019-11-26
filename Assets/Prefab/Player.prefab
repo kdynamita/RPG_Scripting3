@@ -58,9 +58,8 @@ MonoBehaviour:
     lvlUp: 3
     hp: 10
     maxHp: 10
-    str: 1
+    dex: 0
     def: 1
-    dex: 1
     spd: 3
     weapon: {fileID: 0}
   paused: 1
@@ -69,7 +68,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 7526263334168675694}
   shootDelay: 1
   shootCount: 1
-  inventory: {fileID: 0}
+  invUI: {fileID: 0}
   anim: {fileID: 0}
   pState: 0
 --- !u!114 &7526263332728445323
@@ -132,7 +131,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 0.32, y: 0.32}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -184,7 +183,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

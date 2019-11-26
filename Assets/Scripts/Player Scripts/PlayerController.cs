@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public float shootDelay;
     public int shootCount;
 
-    public Inventory inventory;
+    public InventoryUI invUI;
 
     public Animator anim;
 
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
             // - - - - Add Components
             go.AddComponent<Projectile>();
-            go.GetComponent<Projectile>().damage += stats.dex;
+            go.GetComponent<Projectile>().damage = stats.dex;
             go.AddComponent<Rigidbody2D>();
 
             // - - - - Add BoxCollider & make it a Trigger
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
             // - - - - Add SpriteRenderer & assign the sprite based on inventory's equipped Weapon
             go.AddComponent<SpriteRenderer>();
-            go.GetComponent<SpriteRenderer>().sprite = inventory.eWpnSprite;
+            //go.GetComponent<SpriteRenderer>().sprite = invUI.eWpnSprite;
 
             StartCoroutine(ShootRecover());
 
@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
 
     void Block()
     {
+
+
         if (action.defend) {
             rb.velocity = Vector2.zero;
             pState = state.blocking;
@@ -158,6 +160,13 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Interactable")) {
+            other.GetComponent<Interactable>().Pickup();
+        }
     }
 
 
