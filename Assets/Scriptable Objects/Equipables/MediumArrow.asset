@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ba7cae205d4d3843a6d443bdde68bfc, type: 3}
-  m_Name: LightArrow
+  m_Name: MediumArrow
   m_EditorClassIdentifier: 
-  itemName: Bone Arrow
+  itemName: Dark Arrow
   potency: 0
-  icon: {fileID: -1033766676993296678, guid: 1652ec992d3c7124dbe12411f8948226, type: 3}
+  icon: {fileID: 3318904089994504119, guid: 1652ec992d3c7124dbe12411f8948226, type: 3}
   isDefault: 0
   equipSlot: 0
-  damage: 0
+  damage: 1
   defense: 0

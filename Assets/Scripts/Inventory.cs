@@ -41,6 +41,8 @@ public class Inventory : MonoBehaviour
 
     void ToggleInventory()
     {
+        invUi.GetComponent<InventoryUI>().UpdateUI();
+
         if (!isActive) {
             invUi.SetActive(true);
             isActive = true;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba7cae205d4d3843a6d443bdde68bfc, type: 3}
   m_Name: LightShield
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: BoneShield
   potency: 0
   icon: {fileID: 1008871953538273300, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
   isDefault: 0

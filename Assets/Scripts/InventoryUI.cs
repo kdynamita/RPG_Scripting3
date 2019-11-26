@@ -9,6 +9,12 @@ public class InventoryUI : MonoBehaviour
     Inventory inventory;
 
     public InventorySlot[] slots;
+    public PlayerController player;
+
+    public Text lvlText;
+    public Text hpText;
+    public Text dexText;
+    public Text defText;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +31,10 @@ public class InventoryUI : MonoBehaviour
 
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         Debug.Log("Updating UI");
+        UpdateStatsUI();
 
         for (int i=0; i<slots.Length; i++) {
             if (i < inventory.items.Count) {
@@ -36,5 +43,16 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+
+
+    }
+    
+
+    public void UpdateStatsUI()
+    {
+        lvlText.text = player.stats.lvl.ToString();
+        hpText.text = player.stats.hp + " / " + player.stats.maxHp;
+        dexText.text = player.stats.dex.ToString();
+        defText.text = player.stats.def.ToString();
     }
 }

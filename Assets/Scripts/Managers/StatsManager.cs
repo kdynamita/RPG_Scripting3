@@ -1,24 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class LevelManager : MonoBehaviour
+public class StatsManager : MonoBehaviour
 {
     public GameObject player;
     public List<GameObject> unit;
+    public Text hudHp;
+    public Image eWpn;
+    public Image eShield;
 
     void Start()
     {
 
     }
 
-    private void Update()
+    void Update()
     {
         if (unit[0] == null) {
             FindTargets();
         }
 
-        CheckLvlUp();
+        CheckStats();
     }
 
     void FindTargets()
@@ -46,10 +50,20 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    void CheckLvlUp()
+    void CheckStats()
     {
         int exp = player.GetComponent<PlayerController>().stats.exp;
         int nextLvl = player.GetComponent<PlayerController>().stats.lvlUp;
+
+        if (eWpn.sprite != null) {
+            eWpn.sprite = EquipManager.instance.currentEquip[0].icon;
+        }
+
+        if (eShield.sprite != null) {
+            eShield.sprite = EquipManager.instance.currentEquip[1].icon;
+        }
+
+        hudHp.text = "HP: " + player.GetComponent<PlayerController>().stats.hp + " / " + player.GetComponent<PlayerController>().stats.maxHp;
 
         if (exp >= nextLvl) {
 

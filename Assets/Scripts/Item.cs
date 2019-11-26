@@ -15,6 +15,7 @@ public class Item : ScriptableObject
     {
         // Use item
         // Make effect happen
+
         Debug.Log("Using " + name);
     }
 }

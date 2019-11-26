@@ -13,7 +13,7 @@ public class EquipManager : MonoBehaviour
     }
     #endregion 
 
-    Equip[] currentEquip;
+    public Equip[] currentEquip;
 
     private void Start()
     {
