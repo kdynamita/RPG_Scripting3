@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: -7389299311667654144
     second: Arrows_5
+  - first:
+      213: 8725979607429122002
+    second: Arrows_6
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -83,7 +86,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -95,7 +98,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
@@ -118,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 336758e55f4647c46af0291f15cf2ad0
+      spriteID: 4b457633c7547f44aa84da51ba2370ce
       internalID: -1033766676993296678
       vertices: []
       indices: 
@@ -139,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 024fddbd9dd1d174aa6b7a1813e9d53f
+      spriteID: 4656ca8ae48c49a45b5c76820b12633d
       internalID: 5287939958834139383
       vertices: []
       indices: 
@@ -160,7 +163,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d3d5a06abc5c8f499760c3ae8ab3b30
+      spriteID: 9a2c8e2576ec09640be42f954f7036a4
       internalID: 3318904089994504119
       vertices: []
       indices: 
@@ -181,7 +184,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcfade3cf268adb4c95436fb172a2bcc
+      spriteID: 17ac25c781319b04daf6c2d817ba9b2d
       internalID: 2319643638384702094
       vertices: []
       indices: 
@@ -202,7 +205,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0f2ae11223140a498c7fc698d2c5306
+      spriteID: c6134815d7412cb42b481682295795a9
       internalID: 7762582236204482122
       vertices: []
       indices: 
@@ -223,8 +226,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c43f82c1c59abd5419022a7755f730a8
+      spriteID: 320b914349445d34fb11d8419dc3ceea
       internalID: -7389299311667654144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arrows_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfed27e9c53fcf946a66b76f1a0da99a
+      internalID: 8725979607429122002
       vertices: []
       indices: 
       edges: []

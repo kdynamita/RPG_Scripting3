@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
-  m_Name: LightArrow
+  m_Name: BoneArrow
   m_EditorClassIdentifier: 
-  wpnName: Corrupted Arrow
-  damage: 1
-  wpnSprite: {fileID: 5287939958834139383, guid: 1652ec992d3c7124dbe12411f8948226,
+  wpnName: Bone Arrow
+  damage: 0
+  wpnSprite: {fileID: -1033766676993296678, guid: 1652ec992d3c7124dbe12411f8948226,
     type: 3}

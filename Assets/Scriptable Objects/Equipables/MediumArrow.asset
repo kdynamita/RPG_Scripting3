@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
   m_Name: MediumArrow
   m_EditorClassIdentifier: 
-  type: MediumArrow
-  strength: 2
-  wpnSprite: {fileID: 0}
+  wpnName: Dark Arrow
+  damage: 2
+  wpnSprite: {fileID: 3318904089994504119, guid: 1652ec992d3c7124dbe12411f8948226,
+    type: 3}

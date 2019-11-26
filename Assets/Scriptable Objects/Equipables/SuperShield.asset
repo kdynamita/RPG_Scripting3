@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
-  m_Name: LightArrow
+  m_Script: {fileID: 11500000, guid: 7ba7cae205d4d3843a6d443bdde68bfc, type: 3}
+  m_Name: SuperShield
   m_EditorClassIdentifier: 
-  wpnName: Corrupted Arrow
-  damage: 1
-  wpnSprite: {fileID: 5287939958834139383, guid: 1652ec992d3c7124dbe12411f8948226,
-    type: 3}
+  eName: Cursed Shield
+  defense: 3
+  eSprite: {fileID: 3575573264595905874, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}

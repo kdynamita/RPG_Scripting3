@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public ScriptableObject items;
-    public Sprite eWpn;
-    public Sprite eShield;
+
+    public Weapon eWpn;
+    public Sprite eWpnSprite;
+    public Image eWpnImg;
+    public Text eWpnTxt;
+
+    public ScriptableObject eShield;
+    public Sprite eShieldSprite;
+    public Image eShieldImg;
+    public Text eShieldTxt;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,30 +32,19 @@ public class Inventory : MonoBehaviour
 
     void Equip()
     {
+        if (eWpnSprite == null) {
+            eWpnSprite = eWpn.wpnSprite;
+            eWpnImg.sprite = eWpnSprite;
+            eWpnTxt.text = eWpn.wpnName;
+        }
+
         if (Input.GetKey(KeyCode.Q)) {
 
-            for (int i = 0; i < items.Length; i++) {
-
-                if (i < 1) {
-                    i -= 1;
-                    Debug.Log(i);
-                } else {
-                    return;
-                }
-            }
             
         }
 
         if (Input.GetKey(KeyCode.R)) {
-            for (int i = 0; i < items.Length; i++) {
 
-                if (i >= items.Length) {
-                    i += 1;
-                    Debug.Log(i);
-                } else {
-                    return;
-                }
-            }
         }
     }
 

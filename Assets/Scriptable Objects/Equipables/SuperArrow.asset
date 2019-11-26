@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20977e65b93b4b4fa2176a495c04ee2, type: 3}
   m_Name: SuperArrow
   m_EditorClassIdentifier: 
-  type: SuperArrow
-  strength: 3
-  wpnSprite: {fileID: 0}
+  wpnName: Cursed Arrow
+  damage: 3
+  wpnSprite: {fileID: 2319643638384702094, guid: 1652ec992d3c7124dbe12411f8948226,
+    type: 3}

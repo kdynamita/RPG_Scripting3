@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Stats stats;
 
     public state state;
+    public GameObject player;
     
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,28 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (player == null) {
+            GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
+
+
+    public void CheckStats()
+    {
+        if (stats.hp <= 0) {
+            Death();
+        }
+
+    }
+
+    void Death()
+    {
+        // - - - - Give Exp
+        player.GetComponent<PlayerController>().stats.exp += stats.exp;
+        Destroy(this.gameObject);
+    }
 
 }

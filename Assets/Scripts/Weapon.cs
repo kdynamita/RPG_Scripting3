@@ -4,9 +4,9 @@
 
 public class Weapon : ScriptableObject
 {
-    public string type;
+    public string wpnName;
     [Space]
-    public int strength;
+    public int damage;
     [Space]
     public Sprite wpnSprite;
 }

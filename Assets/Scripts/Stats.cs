@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu (fileName = "Data", menuName = "ScriptableObjects/Stats")]
 
-public class Stats : ScriptableObject
+//[CreateAssetMenu (fileName = "Data", menuName = "ScriptableObjects/Stats")]
+[System.Serializable]
+public class Stats 
 {
     public string type;
     [Space]
@@ -10,13 +11,13 @@ public class Stats : ScriptableObject
     [Space]
     public int exp;
     public int lvlUp;
+
     [Space]
     public int hp;
     public int maxHp;
     [Space]
-    public int str;
-    public int def;
     public int dex;
+    public int def;
     [Space]
     public int spd;
     [Space]
