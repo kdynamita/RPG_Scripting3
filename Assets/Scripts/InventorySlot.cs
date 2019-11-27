@@ -8,6 +8,7 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Sprite emptyIcon;
     public Button button;
+    public Text targetText;
 
     Item item;
 
@@ -35,5 +36,13 @@ public class InventorySlot : MonoBehaviour
         if (item != null) {
             item.Use();
         }
+    }
+
+    public void ShowDescription()
+    {
+        if (item != null) {
+            targetText.text = item.itemName + " :  " + item.iText;
+
+        } else { return; }
     }
 }

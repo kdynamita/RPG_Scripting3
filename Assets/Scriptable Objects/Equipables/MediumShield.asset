@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: MediumShield
   m_EditorClassIdentifier: 
   itemName: Dark Shield
-  potency: 0
+  value: 0
   icon: {fileID: 8543412109613828998, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
   isDefault: 0
+  iText: 'Previously a shield dipped in holy water, it was corrupted by dark magic.
+
+
+    Power: 0, Defense: 2'
   equipSlot: 1
   damage: 0
-  defense: 1
+  defense: 2

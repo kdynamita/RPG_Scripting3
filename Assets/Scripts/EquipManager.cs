@@ -6,6 +6,10 @@ public class EquipManager : MonoBehaviour
 {
     #region - - - - - Singleton - - - - - 
     public static EquipManager instance;
+    Inventory inventory;
+
+    public delegate void OnEquipChanged(Equip newItem, Equip oldItem);
+    public OnEquipChanged onEquipChanged;
 
     private void Awake()
     {
@@ -17,6 +21,8 @@ public class EquipManager : MonoBehaviour
 
     private void Start()
     {
+        inventory = Inventory.instance;
+
         int numSlots = System.Enum.GetNames(typeof(EquipSlot)).Length;
         currentEquip = new Equip[numSlots];
     }
@@ -24,6 +30,27 @@ public class EquipManager : MonoBehaviour
     public void Equip (Equip newItem)
     {
         int slotIndex = (int)newItem.equipSlot;
+
+        Equip oldItem = null;
+
+        if (currentEquip[slotIndex] != null) {
+            oldItem = currentEquip[slotIndex];
+            inventory.AddItem(oldItem);
+        }
+
+        if (onEquipChanged != null) {
+            onEquipChanged.Invoke(newItem, oldItem);
+        }
+
         currentEquip[slotIndex] = newItem;
     }
+
+    public void Unequip (int slotIndex)
+    {
+        if (currentEquip[slotIndex] != null) {
+            Equip oldItem = currentEquip[slotIndex];
+            currentEquip[slotIndex] = null;
+        }
+    }
+
 }

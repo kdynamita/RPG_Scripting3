@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Heart+
   m_EditorClassIdentifier: 
   itemName: Healthy Heart
-  potency: 10
-  physicalRep: {fileID: 0}
+  value: 15
+  icon: {fileID: 2567235717235552270, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
+  isDefault: 0
+  iText: 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heart
   m_EditorClassIdentifier: 
   itemName: Bled Out Heart
-  potency: 5
+  value: 5
   icon: {fileID: -2282046923725416553, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
   isDefault: 0
+  iText: 

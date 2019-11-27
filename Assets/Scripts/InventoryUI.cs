@@ -16,10 +16,17 @@ public class InventoryUI : MonoBehaviour
     public Text dexText;
     public Text defText;
 
+    public Image wpnSprite;
+    public Image shldSprite;
+
+    public Image wpnHud;
+    public Image shldHud;
+
     // Start is called before the first frame update
     void Start()
     {
         inventory = Inventory.instance;
+        UpdateStatsUI();
         inventory.OnItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
@@ -34,9 +41,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateUI()
     {
         Debug.Log("Updating UI");
-        UpdateStatsUI();
-
-        for (int i=0; i<slots.Length; i++) {
+        for (int i = 0; i < slots.Length; i++) {
             if (i < inventory.items.Count) {
                 slots[i].AddItem(inventory.items[i]);
             } else {
@@ -44,15 +49,44 @@ public class InventoryUI : MonoBehaviour
             }
         }
 
+        UpdateStatsUI();
+
+
+
 
     }
     
 
     public void UpdateStatsUI()
     {
+        Equip currentWpn = EquipManager.instance.currentEquip[0];
+        Equip currentShld = EquipManager.instance.currentEquip[1];
+
         lvlText.text = player.stats.lvl.ToString();
         hpText.text = player.stats.hp + " / " + player.stats.maxHp;
-        dexText.text = player.stats.dex.ToString();
-        defText.text = player.stats.def.ToString();
+
+        if (currentWpn == null) {
+            dexText.text = player.stats.dex.ToString();
+        }
+
+        if (currentShld == null) {
+            defText.text = player.stats.def.ToString();
+        }
+
+        if (currentWpn != null) {
+            dexText.text = (player.stats.dex + EquipManager.instance.currentEquip[0].damage).ToString();
+            wpnSprite.sprite = currentWpn.icon;
+            wpnHud.sprite = wpnSprite.sprite;
+        }
+
+        if (currentShld != null) {
+            defText.text = (player.stats.def + EquipManager.instance.currentEquip[1].defense).ToString();
+            shldSprite.sprite = currentShld.icon;
+            shldHud.sprite = shldSprite.sprite;
+        }
+
+
+
+
     }
 }

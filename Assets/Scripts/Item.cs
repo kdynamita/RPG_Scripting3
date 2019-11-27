@@ -10,6 +10,8 @@ public class Item : ScriptableObject
     public Sprite icon = null;
     [Space]
     public bool isDefault = false;
+    [Space]
+    [TextArea(4, 20)] public string iText;
 
     public virtual void Use()
     {
@@ -18,5 +20,10 @@ public class Item : ScriptableObject
         
 
         Debug.Log("Using " + name);
+    }
+
+    public void RemoveFromInventory()
+    {
+        Inventory.instance.RemoveItem(this);
     }
 }

@@ -13,7 +13,7 @@ public class Equip : Item
         base.Use();
         EquipManager.instance.Equip(this);
         Debug.Log("Using " + name);
-        //Remove item
+        RemoveFromInventory();
     }
 }
 
