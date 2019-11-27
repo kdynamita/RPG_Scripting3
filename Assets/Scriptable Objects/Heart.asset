@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1964b4517154fff4185647e09a0a9f1c, type: 3}
   m_Name: Heart
   m_EditorClassIdentifier: 
-  itemName: Bled Out Heart
-  value: 5
+  itemName: Damaged Heart
+  Quantity: 0
+  maxQuantity: 0
   icon: {fileID: -2282046923725416553, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
   isDefault: 0
-  iText: 
+  iText: 'A human heart that has bled out on the battlefield. It is not rotten, but
+    not quite fresh anymore.
+
+
+    Effect: Heal up to 5 HP.'
+  potency: 5

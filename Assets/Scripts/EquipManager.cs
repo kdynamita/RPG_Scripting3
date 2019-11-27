@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EquipManager : MonoBehaviour
 {
+    // * I know I shouldn't use multiple singletons, but I've been scrambling just to get this done, been too sick <_> * 
     #region - - - - - Singleton - - - - - 
     public static EquipManager instance;
     Inventory inventory;

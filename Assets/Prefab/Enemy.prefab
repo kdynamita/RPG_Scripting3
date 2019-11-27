@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 2089919093310316772}
   - component: {fileID: 902635108}
   - component: {fileID: 902635110}
-  m_Layer: 0
+  - component: {fileID: 1320235989}
+  - component: {fileID: 1320235991}
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4231370053467916577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.014, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4500530049527265424}
   m_Father: {fileID: 0}
@@ -46,19 +48,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6661978797fb3ff46ad65a05fc2837c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    type: 
-    lvl: 0
-    exp: 0
-    lvlUp: 0
-    hp: 0
-    maxHp: 0
-    dex: 0
-    def: 0
-    spd: 0
-    weapon: {fileID: 0}
-  state: 0
+  eState: 0
   player: {fileID: 0}
+  stats:
+    type: Soldier
+    lvl: 1
+    exp: 2
+    lvlUp: 3
+    hp: 3
+    maxHp: 3
+    dex: 1
+    def: 1
+    spd: 350
+  atkDelay: 1
+  atkRecover: 2
+  minRange: 3
+  maxRange: 3
+  atkCount: 1
+  maxAtkCount: 1
+  projectileSpd: 0.5
+  bulletSpawn: {fileID: 8241765158089093407}
+  weapon: {fileID: 0}
+  shield: {fileID: 0}
+  item: {fileID: 11400000, guid: 218ed5ad156c7994db7ef99c21c31ede, type: 2}
+  unitIndex: 0
+  hasLeveled: 0
 --- !u!61 &902635108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -69,10 +83,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022391021, y: -0.0009120703}
+  m_Offset: {x: 0.03, y: -0.025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -83,7 +97,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45365942, y: 0.9486029}
+  m_Size: {x: 0.35, y: 0.9}
   m_EdgeRadius: 0
 --- !u!212 &902635110
 SpriteRenderer:
@@ -123,7 +137,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7089900449866430797, guid: ba127a07705b29e4faba051222acfbe3,
+  m_Sprite: {fileID: -2203203849147262665, guid: d9eee112524e54c4aa34574444b552b2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -135,6 +149,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1320235989
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231370053467916577}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &1320235991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231370053467916577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 1
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &8241765158089093407
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4500530049527265424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: bulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}

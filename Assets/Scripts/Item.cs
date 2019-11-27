@@ -5,21 +5,24 @@ public class Item : ScriptableObject
 {
     public string itemName;
     [Space]
-    public int value;
+    public int Quantity;
+    public int maxQuantity;
     [Space]
     public Sprite icon = null;
     [Space]
     public bool isDefault = false;
     [Space]
     [TextArea(4, 20)] public string iText;
+    public int potency;
 
     public virtual void Use()
     {
-        // Use item
-        // Make effect happen
-        
+        PlayerController player = StatsManager.instance.player.GetComponent<PlayerController>();
 
-        Debug.Log("Using " + name);
+        if (player.stats.hp < player.stats.maxHp) {
+            player.stats.hp += potency;
+            RemoveFromInventory();
+        }
     }
 
     public void RemoveFromInventory()

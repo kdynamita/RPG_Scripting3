@@ -9,30 +9,37 @@ public enum state
     walking,
     blocking,
     climbing,
+    dead
     #endregion
 }
 
 public class PlayerController : MonoBehaviour
 {
+    public state pState;
+    [Space]
     public PlayerAction action;
     public Stats stats;
-
+    public InventoryUI invUI;
+    public Animator anim;
+    [Space]
     private Rigidbody2D rb;
-    public bool paused;
-
-    public state state;
-
-    public bool canClimb;
-
     public GameObject bulletSpawn;
+    [Space]
+    public bool paused;
+    public bool canClimb;
+    public bool isReviving;
+    [Space]
     public float shootDelay;
     public int shootCount;
+    [Space]
+    public int blockDef;
+    public float timerLimit;
+    public float realTimer;
+    public float parryReset;
+    [Space]
+    public int slayer;
+    public float reviveDelay;
 
-    public InventoryUI invUI;
-
-    public Animator anim;
-
-    [SerializeField] private state pState;
 
 
     // Start is called before the first frame update
@@ -41,7 +48,7 @@ public class PlayerController : MonoBehaviour
         action = GetComponent<PlayerAction>();
         //stats = GetComponent<Stats>();
         rb = GetComponent<Rigidbody2D>();
-        state = state.idle;
+        pState = state.idle;
         anim = GetComponent<Animator>();
     }
 
@@ -49,14 +56,18 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         RunStates();
+        CheckStats();
     }
 
     void RunStates()
     {
-        Movement();
-        Shoot();
-        Block();
-        CheckStats();
+        if (pState != state.dead) {
+            if (pState != state.blocking) {
+                Movement();
+                Shoot();
+            }
+            Block();
+        }
     }
 
     #region - - - - - - ACTION FUNCTIONS - - - - - 
@@ -91,31 +102,43 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (action.attack && shootCount > 0 && pState != state.blocking && EquipManager.instance.currentEquip[0] != null) {
+
+        Equip eShld = EquipManager.instance.currentEquip[0];
+
+        if (action.attack && shootCount > 0 && 
+            pState != state.blocking && pState != state.dead && 
+            eShld != null) {
             shootCount -= 1;
 
             // - - - - Create Projectile Weapon & assign this rotation & position
             GameObject go = new GameObject("Arrow");
 
+            go.tag = "Projectile";
             go.layer = LayerMask.NameToLayer("PlayerAttack");
 
             go.transform.position = bulletSpawn.transform.position;
             go.transform.rotation = bulletSpawn.transform.rotation;
 
 
-            // - - - - Add Components
+            // - - - - Projectile Components & Values - - - - 
             go.AddComponent<Projectile>();
-            go.GetComponent<Projectile>().damage = stats.dex + EquipManager.instance.currentEquip[0].damage;
+            Projectile goProjectile = go.GetComponent<Projectile>();
+
+            goProjectile.autoDestroyDelay = 3f;
+            goProjectile.damage = stats.dex + eShld.damage;
+            goProjectile.owner = this.gameObject;
+
             go.AddComponent<Rigidbody2D>();
+            go.GetComponent<Rigidbody2D>().gravityScale = 0f;
 
             // - - - - Add BoxCollider & make it a Trigger
             go.AddComponent<BoxCollider2D>();
             go.GetComponent<BoxCollider2D>().isTrigger = true;
             go.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.25f);
 
-            // - - - - Add SpriteRenderer & assign the sprite based on inventory's equipped Weapon
+            // - - - - Add SpriteRenderer & assign the sprite based on inventory's eShldped Weapon
             go.AddComponent<SpriteRenderer>();
-            go.GetComponent<SpriteRenderer>().sprite = EquipManager.instance.currentEquip[0].icon;
+            go.GetComponent<SpriteRenderer>().sprite = eShld.icon;
 
             StartCoroutine(ShootRecover());
 
@@ -128,10 +151,18 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Block()
     {
+        Equip eWpn = EquipManager.instance.currentEquip[1];
+
+        if (action.defend && eWpn != null) {
 
 
-        if (action.defend) {
+            if (realTimer < timerLimit) {
+                realTimer += Time.deltaTime;
+            }
+
+
             rb.velocity = Vector2.zero;
+            blockDef = stats.def + eWpn.defense;
             pState = state.blocking;
             anim.SetBool("isBlocking", true);
         }
@@ -139,7 +170,17 @@ public class PlayerController : MonoBehaviour
         else {
             pState = state.idle;
             anim.SetBool("isBlocking", false);
+
+            if (realTimer > 0) {
+                StartCoroutine(ParryCo());
+            }
         }
+    }
+
+    public IEnumerator ParryCo()
+    {
+        yield return new WaitForSeconds(parryReset);
+        realTimer = 0f;
     }
 
     public IEnumerator ShootRecover()
@@ -159,16 +200,39 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        Destroy(this.gameObject);
+        pState = state.dead;
+        this.gameObject.layer = LayerMask.NameToLayer("Dead");
+        Inventory.instance.canUse = false;
+        StartCoroutine(Revive());
     }
 
+    public IEnumerator Revive()
+    {
+        StatsManager.instance.CheckEnemyLevelUp();
+        yield return new WaitForSeconds(0.06f);
+
+
+
+        // REVIVE YOUR BOY
+    }
+
+
+    #region - Trigger Functions - 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Interactable")) {
             other.GetComponent<Interactable>().Pickup();
         }
-    }
 
+        if (other.CompareTag("Projectile")) {
+
+            if (pState == state.blocking && realTimer < timerLimit) {
+                stats.hp += other.GetComponent<Projectile>().damage+1;
+            } else {
+                StatsManager.instance.CheckStats();
+            }
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -185,5 +249,6 @@ public class PlayerController : MonoBehaviour
             canClimb = false;
         }
     }
+    #endregion
 
 }

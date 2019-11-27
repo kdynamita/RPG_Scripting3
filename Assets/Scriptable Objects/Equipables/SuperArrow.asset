@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: SuperArrow
   m_EditorClassIdentifier: 
   itemName: Cursed Arrow
-  value: 0
+  Quantity: 10
+  maxQuantity: 99
   icon: {fileID: 2319643638384702094, guid: 1652ec992d3c7124dbe12411f8948226, type: 3}
   isDefault: 0
   iText: 'A special arrow dipped in the blood of countless humans. It is said to bring
     curses to whole kingdoms.
 
 
-    Power: 3, Defense: 0'
+    Power: 3, Defense: 0
+
+    Qty: 10'
+  potency: 0
   equipSlot: 0
   damage: 3
   defense: 0

@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Heart+
   m_EditorClassIdentifier: 
   itemName: Healthy Heart
-  value: 15
+  Quantity: 0
+  maxQuantity: 0
   icon: {fileID: 2567235717235552270, guid: 07836ff48eb710b4caaee725e06aaf47, type: 3}
   isDefault: 0
-  iText: 
+  iText: 'A pure human heart in perfect condition.
+
+
+    Effect: Heal up to 15 HP.'
+  potency: 15

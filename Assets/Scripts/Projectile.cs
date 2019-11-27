@@ -7,6 +7,9 @@ public class Projectile : MonoBehaviour
     public Rigidbody2D rb;
     public float speed = 1f;
     public int damage;
+    public float autoDestroyDelay;
+
+    public GameObject owner;
 
     void Start()
     {
@@ -30,8 +33,11 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator AutoDestroy()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(autoDestroyDelay);
+        Debug.Log("AutoDestroyed");
+
         Destroy(this.gameObject);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -47,16 +53,14 @@ public class Projectile : MonoBehaviour
             other.GetComponent<Enemy>().CheckStats();
 
         } else if (other.CompareTag("Player")) {
-            state pState = other.GetComponent<PlayerController>().state;
+            state pState = other.GetComponent<PlayerController>().pState;
             if (pState != state.blocking) {
                 other.GetComponent<PlayerController>().stats.hp -= damage;
             } else {
-                damage -= other.GetComponent<PlayerController>().stats.def;
+                damage -= other.GetComponent<PlayerController>().blockDef;
                 other.GetComponent<PlayerController>().stats.hp -= damage;
             }
         }
-
-        Debug.Log(other.name);
         Destroy(this.gameObject);
         
     }

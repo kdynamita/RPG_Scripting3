@@ -9,6 +9,8 @@ TagManager:
   - PlayerSpawn
   - EnemySpawn
   - Interactable
+  - Ground
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -23,9 +25,9 @@ TagManager:
   - Enemy
   - EnemyAttack
   - Interactable
-  - 
-  - 
-  - 
+  - Ground
+  - TestLayer
+  - Dead
   - 
   - 
   - 

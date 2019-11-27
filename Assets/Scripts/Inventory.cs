@@ -5,16 +5,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-
-    public static Inventory instance;
-    public GameObject invUi;
-
-    public List<Item> items = new List<Item>();
-
-
-    private bool isActive = false;
-
+    // * I know I shouldn't use multiple singletons, but I've been scrambling just to get this done, been too sick <_> * 
     #region - - - - - SINGLETON - - - - - 
+    public static Inventory instance;
     void Awake()
     {
         if (instance != null) {
@@ -26,6 +19,15 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
+    public bool canUse = true;
+
+    public GameObject invUi;
+
+    public List<Item> items = new List<Item>();
+
+
+    private bool isActive = false;
+
     public delegate void OnItemChanged();
     public OnItemChanged OnItemChangedCallback; 
 
@@ -34,7 +36,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(KeyCode.I) && canUse) {
             ToggleInventory();
         }
     }
@@ -46,9 +48,11 @@ public class Inventory : MonoBehaviour
         if (!isActive) {
             invUi.SetActive(true);
             isActive = true;
+            Time.timeScale = 0;
         } else if (isActive) {
             invUi.SetActive(false);
             isActive = false;
+            Time.timeScale = 1;
         }
     }
 

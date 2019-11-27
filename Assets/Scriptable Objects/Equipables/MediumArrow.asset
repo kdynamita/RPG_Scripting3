@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: MediumArrow
   m_EditorClassIdentifier: 
   itemName: Dark Arrow
-  value: 0
+  Quantity: 15
+  maxQuantity: 99
   icon: {fileID: 3318904089994504119, guid: 1652ec992d3c7124dbe12411f8948226, type: 3}
   isDefault: 0
   iText: 'Previously an arrow dipped in holy water, it was corrupted by dark magic.
 
 
-    Power: 2, Defense: 0'
+    Power: 2, Defense: 0
+
+    Qty: 15'
+  potency: 0
   equipSlot: 0
   damage: 2
   defense: 0

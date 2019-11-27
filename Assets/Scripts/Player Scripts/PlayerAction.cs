@@ -11,6 +11,7 @@ public class PlayerAction : MonoBehaviour
 
     public bool attack;
     public bool defend;
+    public bool relDefend;
     public bool menu;
 
     public bool canMove = true;
@@ -82,6 +83,7 @@ public class PlayerAction : MonoBehaviour
     {
         attack = Input.GetKey(input.attack);
         defend = Input.GetKey(input.defend);
+        relDefend = Input.GetKeyUp(input.defend);
         menu = Input.GetKey(input.menu);
 
         // - - - Pause / Unpause - - - 

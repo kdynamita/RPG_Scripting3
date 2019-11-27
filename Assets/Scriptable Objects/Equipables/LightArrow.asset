@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: LightArrow
   m_EditorClassIdentifier: 
   itemName: Bone Arrow
-  value: 0
+  Quantity: 30
+  maxQuantity: 99
   icon: {fileID: -1033766676993296678, guid: 1652ec992d3c7124dbe12411f8948226, type: 3}
   isDefault: 0
-  iText: 'Weak arrow made out of human bones.
-
-
-    Power: 0, Defense: 0'
+  iText: "Weak arrow made out of human bones. \n\nPower: 1, Defense: 0\nQty: 30"
+  potency: 0
   equipSlot: 0
   damage: 1
   defense: 0
