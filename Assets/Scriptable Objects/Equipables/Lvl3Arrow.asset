@@ -23,6 +23,7 @@ MonoBehaviour:
 
     Power: 3, Defense: 0'
   potency: 0
+  idItem: 10
   equipSlot: 0
   damage: 3
   defense: 0

@@ -24,6 +24,7 @@ MonoBehaviour:
 
     Qty: 15'
   potency: 0
+  idItem: 4
   equipSlot: 0
   damage: 2
   defense: 0

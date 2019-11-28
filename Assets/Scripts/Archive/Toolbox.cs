@@ -25,7 +25,6 @@ public class Toolbox : MonoBehaviour
 
     //private LevelManager lvlManager;
     //private StatManager statManager;
-    private EventManager eventManager;
     private PlayerInput playerInput;
     private PlayerAction playerAction;
 
@@ -47,7 +46,6 @@ public class Toolbox : MonoBehaviour
         go.transform.parent = this.gameObject.transform;
         /*this.lvlManager = go.AddComponent<LevelManager>();
         this.statManager = go.AddComponent<StatManager>(); */
-        this.eventManager = go.AddComponent<EventManager>();
         this.playerInput = go.AddComponent<PlayerInput>();
         this.playerAction = go.AddComponent<PlayerAction>();
 
@@ -74,9 +72,5 @@ public class Toolbox : MonoBehaviour
         return this.playerAction;
     }
 
-    public EventManager GetEvent()
-    {
-        return this.eventManager;
-    }
 
 }

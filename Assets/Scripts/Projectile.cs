@@ -33,8 +33,7 @@ public class Projectile : MonoBehaviour
 
     public IEnumerator AutoDestroy()
     {
-        yield return new WaitForSeconds(autoDestroyDelay);
-        Debug.Log("AutoDestroyed");
+        yield return new WaitForSeconds(autoDestroyDelay);;
 
         Destroy(this.gameObject);
 

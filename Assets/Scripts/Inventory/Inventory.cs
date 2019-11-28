@@ -56,21 +56,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void EquipWeapon()
-    {
-        //eWpn = ;
-    }
-
-    void EquipShield()
-    {
-        //eShield = ;
-    }
-
-    void UsePotion()
-    {
-
-    }
-
     public bool AddItem(Item item)
     {
         if (!item.isDefault) {

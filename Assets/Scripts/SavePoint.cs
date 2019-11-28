@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SavePoint : MonoBehaviour
-{
-    public LevelManager lvlManager;
+{   
     public SavePlayerPrefs savePrefs;
     public Transform spawnPoint;
 
@@ -22,9 +21,7 @@ public class SavePoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this.gameObject.AddComponent<BoxCollider2D>();
-        //this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(5f, 5f);
-        //this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+
     }
 
 
@@ -40,10 +37,10 @@ public class SavePoint : MonoBehaviour
     void ConfirmSave() {
         if (Input.GetKeyDown(KeyCode.K)) {
             if (!hasSaved && isIn) {
-                lvlManager.respawnPoint = spawnPoint.transform.position;
+                GameworldManager.instance.respawnPoint = spawnPoint.transform.position;
                 spriteSlot.sprite = saving;
                 hasSaved = true;
-                StartCoroutine("SaveFinished");
+                StartCoroutine(SaveFinished());
                 Save();
             }
         } 

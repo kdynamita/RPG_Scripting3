@@ -9,12 +9,14 @@ public enum state
     walking,
     blocking,
     climbing,
-    dead
+    dead,
+    attacking,
     #endregion
 }
 
 public class PlayerController : MonoBehaviour
 {
+    #region - - - - - VARIABLES - - - - 
     public state pState;
     [Space]
     public PlayerAction action;
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
     public int slayer;
     public float reviveDelay;
 
+    #endregion 
+
 
 
     // Start is called before the first frame update
@@ -57,18 +61,23 @@ public class PlayerController : MonoBehaviour
     {
         RunStates();
         CheckStats();
+
     }
 
     void RunStates()
     {
         if (pState != state.dead) {
             if (pState != state.blocking) {
-                Movement();
+                if (pState != state.attacking) {
+                    Movement();
+                }
                 Shoot();
             }
             Block();
         }
     }
+
+
 
     #region - - - - - - ACTION FUNCTIONS - - - - - 
     public virtual void Movement()
@@ -108,7 +117,11 @@ public class PlayerController : MonoBehaviour
         if (action.attack && shootCount > 0 && 
             pState != state.blocking && pState != state.dead && 
             eShld != null) {
+
             shootCount -= 1;
+
+            pState = state.attacking;
+            anim.SetBool("isAttacking", true);
 
             // - - - - Create Projectile Weapon & assign this rotation & position
             GameObject go = new GameObject("Arrow");
@@ -139,6 +152,8 @@ public class PlayerController : MonoBehaviour
             // - - - - Add SpriteRenderer & assign the sprite based on inventory's eShldped Weapon
             go.AddComponent<SpriteRenderer>();
             go.GetComponent<SpriteRenderer>().sprite = eShld.icon;
+            go.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+            go.GetComponent<SpriteRenderer>().sortingOrder = 5;
 
             StartCoroutine(ShootRecover());
 
@@ -186,6 +201,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator ShootRecover()
     {
         yield return new WaitForSeconds(shootDelay);
+        pState = state.idle;
+        anim.SetBool("isAttacking", false);
         shootCount = 1;
     }
 
@@ -201,19 +218,35 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         pState = state.dead;
+        anim.SetBool("isDead", true);
         this.gameObject.layer = LayerMask.NameToLayer("Dead");
         Inventory.instance.canUse = false;
-        StartCoroutine(Revive());
+        StartCoroutine(DeathCo());
     }
 
-    public IEnumerator Revive()
+    public IEnumerator DeathCo()
     {
         StatsManager.instance.CheckEnemyLevelUp();
-        yield return new WaitForSeconds(0.06f);
+        yield return new WaitForSeconds(3.5f);
+        Revive();
 
+    }
 
+    public void Revive()
+    {
+        if (pState == state.idle) {
+            return;
+        } else {
+            isReviving = false;
+            //GameworldManager.instance.Respawn();
+            stats.hp = stats.maxHp;
+            anim.SetBool("isDead", false);
+            pState = state.idle;
+            gameObject.layer = LayerMask.NameToLayer("Player");
+            Inventory.instance.canUse = true;
 
-        // REVIVE YOUR BOY
+        }
+
     }
 
 
@@ -222,20 +255,31 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Interactable")) {
             other.GetComponent<Interactable>().Pickup();
+            GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.itemPrompt;
         }
 
-        if (other.CompareTag("Projectile")) {
 
+        if (other.CompareTag("Projectile")) {
+            
             if (pState == state.blocking && realTimer < timerLimit) {
                 stats.hp += other.GetComponent<Projectile>().damage+1;
-            } else {
+                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.parryPrompt;
+            } 
+            
+            else if (pState == state.blocking && realTimer >= timerLimit) {
+                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.blockPrompt;
+            } 
+            
+            else {
                 StatsManager.instance.UpdateStats();
+                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.hurtPrompt;
             }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
+
         if (other.CompareTag("Ladder"))
         {
             canClimb = true;
@@ -244,6 +288,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+
         if (other.CompareTag("Ladder"))
         {
             canClimb = false;

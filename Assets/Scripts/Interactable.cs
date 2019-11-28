@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         this.gameObject.AddComponent<CircleCollider2D>();
-        this.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
+        this.gameObject.GetComponent<CircleCollider2D>().radius = 0.75f;
         this.gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
     }
 

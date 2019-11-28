@@ -25,6 +25,8 @@ public class Item : ScriptableObject
             RemoveFromInventory();
         }
     }
+    public virtual void Drop(){
+    }
 
     public void RemoveFromInventory()
     {

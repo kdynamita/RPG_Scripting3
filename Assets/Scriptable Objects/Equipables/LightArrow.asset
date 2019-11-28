@@ -19,6 +19,7 @@ MonoBehaviour:
   isDefault: 0
   iText: "Weak arrow made out of human bones. \n\nPower: 1, Defense: 0\nQty: 30"
   potency: 0
+  idItem: 2
   equipSlot: 0
   damage: 1
   defense: 0

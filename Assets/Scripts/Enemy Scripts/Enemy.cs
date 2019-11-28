@@ -35,26 +35,40 @@ public class Enemy : MonoBehaviour
     public Equip weapon;
     public Equip shield;
     public Item item;
+    [Space]
+    public int minDrop;
 
     public int unitIndex = 0;
     public bool hasLeveled;
+
+    public Animator anim;
+
+    public Sprite corpse;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        if (eState != state.dead) { 
+            InvokeRepeating("UpdatePath", 0f, 0.5f);
+        }
     }
 
 
     void FixedUpdate()
     {
-        RunState();
+        if (eState != state.dead) {
+            RunState();
+        } else {
+            return;
+        }
     }
 
     void RunState()
     {
+        
         AssignPlayer();
         FlipSprite();
 
@@ -67,7 +81,7 @@ public class Enemy : MonoBehaviour
     {
         if (player == null) {
             player = StatsManager.instance.player;
-        } else { return; }
+        }
     }
 
 
@@ -112,7 +126,7 @@ public class Enemy : MonoBehaviour
 
     public void Movement()
     {
-        if (path == null || player.GetComponent<PlayerController>().pState == state.dead) {
+        if (path == null || player.GetComponent<PlayerController>().pState == state.dead || eState == state.dead || eState == state.attacking) {
             return;
         }
 
@@ -123,10 +137,13 @@ public class Enemy : MonoBehaviour
             reachedEndPath = false;
         }
 
+        eState = state.walking;
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * stats.spd * Time.deltaTime;
 
+
         rb.AddForce(force);
+
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float distance2Player = Vector2.Distance(rb.position, player.transform.position);
@@ -135,7 +152,7 @@ public class Enemy : MonoBehaviour
         if (distance < nextWaypoint) {
             if (distance2Player < nextWaypoint) {
                 rb.velocity = Vector2.zero;
-                if (atkCount > 0) {
+                if (atkCount > 0 || eState != state.dead) {
                     StartCoroutine(Attack());
                 }
             } else {
@@ -150,48 +167,58 @@ public class Enemy : MonoBehaviour
         if (weapon != null) {
             atkCount -= 1;
 
-            yield return new WaitForSeconds(atkDelay);
+            if (eState != state.dead) {
 
-            GameObject go = new GameObject("Arrow");
+                eState = state.attacking;
+                anim.SetBool("isAttacking", true);
+                yield return new WaitForSeconds(atkDelay);
 
-            go.tag = "Projectile";
-            go.layer = LayerMask.NameToLayer("EnemyAttack");
+                GameObject go = new GameObject("Arrow");
+
+                go.tag = "Projectile";
+                go.layer = LayerMask.NameToLayer("EnemyAttack");
 
 
-            go.transform.position = bulletSpawn.transform.position;
-            go.transform.rotation = bulletSpawn.transform.rotation;
+                go.transform.position = bulletSpawn.transform.position;
+                go.transform.rotation = bulletSpawn.transform.rotation;
 
 
-            // - - - - Add Components
-            go.AddComponent<Projectile>();
-            Projectile goProjectile = go.GetComponent<Projectile>();
+                // - - - - Add Components
+                go.AddComponent<Projectile>();
+                Projectile goProjectile = go.GetComponent<Projectile>();
 
-            goProjectile.autoDestroyDelay = 3f;
-            goProjectile.damage = stats.dex; //+ EquipManager.instance.currentEquip[0].damage;
-            goProjectile.owner = this.gameObject;
-            goProjectile.speed = projectileSpd;
+                goProjectile.autoDestroyDelay = 5f;
+                goProjectile.damage = stats.dex + weapon.damage; //+ EquipManager.instance.currentEquip[0].damage;
+                goProjectile.owner = this.gameObject;
+                goProjectile.speed = projectileSpd;
 
-            go.AddComponent<Rigidbody2D>();
-            go.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                go.AddComponent<Rigidbody2D>();
+                go.GetComponent<Rigidbody2D>().gravityScale = 0f;
 
-            // - - - - Add BoxCollider & make it a Trigger
-            go.AddComponent<BoxCollider2D>();
-            go.GetComponent<BoxCollider2D>().isTrigger = true;
-            go.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.25f);
+                // - - - - Add BoxCollider & make it a Trigger
+                go.AddComponent<BoxCollider2D>();
+                go.GetComponent<BoxCollider2D>().isTrigger = true;
+                go.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.25f);
 
-            // - - - - Add SpriteRenderer & assign the sprite based on inventory's equipped Weapon
-            go.AddComponent<SpriteRenderer>();
-            go.GetComponent<SpriteRenderer>().sprite = weapon.icon;
+                // - - - - Add SpriteRenderer & assign the sprite based on inventory's equipped Weapon
+                go.AddComponent<SpriteRenderer>();
+                go.GetComponent<SpriteRenderer>().sprite = weapon.icon;
+                go.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
+                go.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
 
         }
-
-        StartCoroutine(AttackRecover());
-
+            StartCoroutine(AttackRecover());
     }
 
     public IEnumerator AttackRecover()
     {
+
         yield return new WaitForSeconds(atkRecover);
+        anim.SetBool("isAttacking", false);
+        if (eState != state.dead) {
+            eState = state.idle;
+        }
         atkCount = maxAtkCount;
     }
 
@@ -207,22 +234,54 @@ public class Enemy : MonoBehaviour
     void Death()
     {
         eState = state.dead;
+        anim.SetBool("isDead", true);
+        gameObject.layer = LayerMask.NameToLayer("Dead");
 
+        player.GetComponent<PlayerController>().stats.exp = stats.exp;
         if (item != null) {
-            GameObject go = new GameObject("Drop");
-            go.tag = "Interactable";
-            go.transform.position = this.transform.position;
+            int dropChance = Random.Range(0, 100);
 
-            go.AddComponent<Interactable>();
-            go.GetComponent<Interactable>().item = item;
+            if (dropChance < minDrop) {
+                GameObject go = new GameObject("Drop");
+                go.tag = "Interactable";
+                go.transform.position = this.transform.position;
 
-            go.AddComponent<BoxCollider2D>();
-            go.GetComponent<BoxCollider2D>().isTrigger = true;
-            go.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.25f);
+                go.AddComponent<Interactable>();
+                go.GetComponent<Interactable>().item = item;
 
-            go.AddComponent<SpriteRenderer>();
-            go.GetComponent<SpriteRenderer>().sprite = item.icon;
+                go.AddComponent<BoxCollider2D>();
+                go.GetComponent<BoxCollider2D>().isTrigger = true;
+                go.GetComponent<BoxCollider2D>().size = new Vector2(0.5f, 0.25f);
+
+                go.AddComponent<SpriteRenderer>();
+                go.GetComponent<SpriteRenderer>().sprite = item.icon;
+            }
         }
+
+        StartCoroutine(DestroyAll());
+    }
+
+    public IEnumerator DestroyAll()
+    {
+        yield return new WaitForSeconds(1f);
+
+        GameObject go = new GameObject("Corpse");
+        go.transform.position = this.transform.position;
+        if (player.transform.position.x < this.transform.position.x) {
+            go.transform.localScale = new Vector2(-1f, 1f);
+        } else if (player.transform.position.x > this.transform.position.x) {
+            go.transform.localScale = new Vector2(-1f, 1f);
+        }
+        go.AddComponent<SpriteRenderer>().sprite = corpse;
+        go.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
+        go.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+
+
+
+
+
+        Destroy(this.gameObject);
     }
 
 }

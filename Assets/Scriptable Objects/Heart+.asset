@@ -22,3 +22,4 @@ MonoBehaviour:
 
     Effect: Heal up to 15 HP.'
   potency: 15
+  idItem: 1

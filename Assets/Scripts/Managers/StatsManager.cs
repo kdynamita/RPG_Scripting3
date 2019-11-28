@@ -28,12 +28,14 @@ public class StatsManager : MonoBehaviour
     public float playTime;
     public int totalKills;
 
+    public bool isLoadingPrefs = true;
+
     void Start()
     {
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         FindTargets();
         UpdateStats();
@@ -69,9 +71,6 @@ public class StatsManager : MonoBehaviour
         if (player != null) {
 
             #region - - - - - Update Exp & Equip Icons - - - - 
-            // - - - - - Update exp & next level exp required - - - - - 
-            int exp = playerController.stats.exp;
-            int nextLvl = playerController.stats.lvlUp;
 
             // - - - - Check if there's a weapon equipped - - - - - 
             // - - - If there is one, then assign the icon - - -
@@ -106,7 +105,7 @@ public class StatsManager : MonoBehaviour
 
             #region - - - - - Exp & Level Up (Player & Enemy) - - - - -
             // - - - - - If Exp requirement is met, level up character - - - - - 
-            if (exp >= nextLvl) {
+            if (playerController.stats.exp >= playerController.stats.lvlUp) {
                 LevelUp();
             }
 
@@ -142,17 +141,6 @@ public class StatsManager : MonoBehaviour
                     unit.Remove(unit[i]);
                     i = 0;
                 }
-                // - - - - - Check if the enemy is dead - - - - -
-                if (unit[i].GetComponent<Enemy>().eState == state.dead) {
-
-                    // - - - - - - If enemy is dead, then give the player exp, 
-                    // - - - - Destroy the enemy unit
-                    // - - - Remove the unit from the enemy list - - - - - 
-                    playerController.stats.exp = unit[i].GetComponent<Enemy>().stats.exp;
-                    Destroy(unit[i]);
-                    unit.Remove(unit[i]);
-                    AssignUnitIndex();
-                }
             }
         } else { return; }
         #endregion
@@ -172,16 +160,24 @@ public class StatsManager : MonoBehaviour
     // - - - - - 1 Level, Doubles Exp Requirements, 5 HP & Max H, 1 Dex & 1 Def
     void LevelUp()
     {
-    
-        if (playerController.pState != state.dead){
-            playerController.stats.lvl += 1;
-            playerController.stats.lvlUp *= 2;
+        if (isLoadingPrefs) {
+            return;
+        } else {
+            if (playerController.pState != state.dead || !isLoadingPrefs) {
+                Debug.Log("Called LevelUp");
+                if (playerController.pState != state.dead) {
+                    Debug.Log("Applying level up");
+                    playerController.stats.lvlUp *= 2;
 
-            playerController.stats.maxHp += 5;
-            playerController.stats.hp += 5;
+                    playerController.stats.lvl += 1;
+                    playerController.stats.maxHp += 5;
+                    playerController.stats.hp += 5;
 
-            playerController.stats.dex += 1;
-            playerController.stats.def += 1;
+                    playerController.stats.dex += 1;
+                    playerController.stats.def += 1;
+                    GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.lvlPrompt;
+                }
+            }
         }
     }
 
