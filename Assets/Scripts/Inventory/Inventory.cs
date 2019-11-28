@@ -5,20 +5,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // * I know I shouldn't use multiple singletons, but I've been scrambling just to get this done, been too sick <_> * 
-    #region - - - - - SINGLETON - - - - - 
-    public static Inventory instance;
-    void Awake()
-    {
-        if (instance != null) {
-            Debug.LogWarning("Multiple instances!!");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
     public bool canUse = true;
 
     public GameObject invUi;

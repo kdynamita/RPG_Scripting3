@@ -4,25 +4,15 @@ using UnityEngine;
 
 public class EquipManager : MonoBehaviour
 {
-    // * I know I shouldn't use multiple singletons, but I've been scrambling just to get this done, been too sick <_> * 
-    #region - - - - - Singleton - - - - - 
-    public static EquipManager instance;
-    Inventory inventory;
 
     public delegate void OnEquipChanged(Equip newItem, Equip oldItem);
     public OnEquipChanged onEquipChanged;
 
-    private void Awake()
-    {
-        instance = this;
-    }
-    #endregion 
 
     public Equip[] currentEquip;
 
     private void Start()
     {
-        inventory = Inventory.instance;
 
         int numSlots = System.Enum.GetNames(typeof(EquipSlot)).Length;
         currentEquip = new Equip[numSlots];
@@ -36,7 +26,7 @@ public class EquipManager : MonoBehaviour
 
         if (currentEquip[slotIndex] != null) {
             oldItem = currentEquip[slotIndex];
-            inventory.AddItem(oldItem);
+            Toolbox.GetInstance().GetInventory().GetComponent<Inventory>().AddItem(oldItem);
         }
 
         if (onEquipChanged != null) {

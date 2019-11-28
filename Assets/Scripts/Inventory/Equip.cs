@@ -11,7 +11,7 @@ public class Equip : Item
     public override void Use()
     {
         base.Use();
-        EquipManager.instance.Equip(this);
+        Toolbox.GetInstance().GetEquip().Equip(this);
         Debug.Log("Using " + name);
         RemoveFromInventory();
     }

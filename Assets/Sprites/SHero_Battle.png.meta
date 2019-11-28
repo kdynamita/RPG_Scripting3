@@ -17,6 +17,21 @@ TextureImporter:
   - first:
       213: 636915270176955346
     second: Dizzy
+  - first:
+      213: -2609317054894339151
+    second: SHero_Battle_0
+  - first:
+      213: -7632127847513527702
+    second: SHero_Battle_1
+  - first:
+      213: -5162864745552284248
+    second: SHero_Battle_2
+  - first:
+      213: -2980665875764823592
+    second: SHero_Battle_3
+  - first:
+      213: 636915270176955346
+    second: SHero_Battle_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -101,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle
+      name: SHero_Battle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -109,20 +124,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 417e4a6669ba1c54daef24c72def2691
+      spriteID: 64d3140f2e2d7714eac3ed6cdf2a4365
       internalID: -2609317054894339151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Slash
+      name: SHero_Battle_1
       rect:
         serializedVersion: 2
         x: 32
@@ -130,20 +145,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e960322ce401a514f9d9409649773cb9
+      spriteID: 021ab58ca02a2d84f8e4b407bdfcec65
       internalID: -7632127847513527702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block
+      name: SHero_Battle_2
       rect:
         serializedVersion: 2
         x: 64
@@ -151,20 +166,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12d290ff738ee4428ab4cf70c07e096
+      spriteID: 3c9f1841895ec3744b574f9e9fd9556f
       internalID: -5162864745552284248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Parry
+      name: SHero_Battle_3
       rect:
         serializedVersion: 2
         x: 96
@@ -172,20 +187,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f056cf23cd71fc48a860f5621a6d7c4
+      spriteID: cc7a353e62f73504f801f12fd0c189b4
       internalID: -2980665875764823592
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dizzy
+      name: SHero_Battle_4
       rect:
         serializedVersion: 2
         x: 128
@@ -193,13 +208,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f69fad67107f65a46846424fd0035b39
+      spriteID: e124078239fdb2f488a04ed133e9e2f8
       internalID: 636915270176955346
       vertices: []
       indices: 

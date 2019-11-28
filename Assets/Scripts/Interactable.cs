@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
     {
         Debug.Log("Picking up " + item);
         
-        bool pickedUp = Inventory.instance.AddItem(item);
+        bool pickedUp = Toolbox.GetInstance().GetInventory().AddItem(item);
 
         if (pickedUp) {
             Destroy(this.gameObject);

@@ -60,6 +60,8 @@ public class Projectile : MonoBehaviour
                 other.GetComponent<PlayerController>().stats.hp -= damage;
             }
         }
+
+        Debug.Log(other.name);
         Destroy(this.gameObject);
         
     }

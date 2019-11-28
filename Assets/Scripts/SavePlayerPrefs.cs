@@ -9,10 +9,24 @@ public class SavePlayerPrefs : MonoBehaviour
     public Item[] equip;
     public Equip[] equipment;
 
+    private StatsManager stats;
+    private GameworldManager manager;
+    private Inventory inventory;
+    private EquipManager equipManager;
+    private EnemyInventory eInventory;
+    private SavePlayerPrefs savePrefs;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LateStart());
+        stats = Toolbox.GetInstance().GetStats().GetComponent<StatsManager>();
+
+        manager = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>();
+
+        inventory = Toolbox.GetInstance().GetInventory().GetComponent<Inventory>();
+
+        equipManager = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>();
+        eInventory = Toolbox.GetInstance().GeteInventory().GetComponent<EnemyInventory>();
     }
 
     public IEnumerator LateStart()
@@ -25,7 +39,7 @@ public class SavePlayerPrefs : MonoBehaviour
     void Update()
     {
        if (player == null) {
-            player = StatsManager.instance.player.GetComponent<PlayerController>();
+            player = stats.player.GetComponent<PlayerController>();
         }
     }
 
@@ -38,8 +52,8 @@ public class SavePlayerPrefs : MonoBehaviour
         }
 
         // - - - Saving respawn point coordinates
-        PlayerPrefs.SetFloat("RespawnPoint.x", GameworldManager.instance.respawnPoint.x);
-        PlayerPrefs.SetFloat("RespawnPoint.y", GameworldManager.instance.respawnPoint.y);
+        PlayerPrefs.SetFloat("RespawnPoint.x", manager.respawnPoint.x);
+        PlayerPrefs.SetFloat("RespawnPoint.y", manager.respawnPoint.y);
 
         // - - - Saving Player Stats
         PlayerPrefs.SetInt("Level", player.stats.lvl);
@@ -49,38 +63,38 @@ public class SavePlayerPrefs : MonoBehaviour
         PlayerPrefs.SetInt("Def", player.stats.def);
 
         // - - - Saving General Game Stats
-        PlayerPrefs.SetInt("Number of death(s)", StatsManager.instance.died);
-        PlayerPrefs.SetFloat("Playtime", StatsManager.instance.playTime);
+        PlayerPrefs.SetInt("Number of death(s)", stats.died);
+        PlayerPrefs.SetFloat("Playtime", stats.playTime);
 
         // - - - Saving Inventory - - - 
 
-        if (Inventory.instance.items.Count > 0) {
-            for (int i = 0; i < Inventory.instance.items.Count; i++) {
-                if (Inventory.instance.items[i] != null) {
-                    PlayerPrefs.SetInt("Item Slot " + i, Inventory.instance.items[i].idItem);
+        if (inventory.items.Count > 0) {
+            for (int i = 0; i < inventory.items.Count; i++) {
+                if (inventory.items[i] != null) {
+                    PlayerPrefs.SetInt("Item Slot " + i, inventory.items[i].idItem);
                 }
 
                 PlayerPrefs.SetInt("The size of the inventory", i + 1);
 
             }
-        } else if (Inventory.instance.items.Count <= 0) {
+        } else if (inventory.items.Count <= 0) {
 
             PlayerPrefs.SetInt("The size of the inventory", 0);
         }
         
 
         // - - - Saving Equipment - - - 
-        for (int i= 0; i < EquipManager.instance.currentEquip.Length; i++) {
-            if (EquipManager.instance.currentEquip[i] != null) {
-                PlayerPrefs.SetInt("Equipment Worn " + i, EquipManager.instance.currentEquip[i].idItem);
+        for (int i= 0; i < equipManager.currentEquip.Length; i++) {
+            if (equipManager.currentEquip[i] != null) {
+                PlayerPrefs.SetInt("Equipment Worn " + i, equipManager.currentEquip[i].idItem);
             }
         }
 
-        if (EquipManager.instance.currentEquip[0] != null) {
-            PlayerPrefs.SetInt("Weapon Equipped ", EquipManager.instance.currentEquip[0].idItem);
+        if (equipManager.currentEquip[0] != null) {
+            PlayerPrefs.SetInt("Weapon Equipped ", equipManager.currentEquip[0].idItem);
         }
-        if (EquipManager.instance.currentEquip[1] != null) {
-            PlayerPrefs.SetInt("Shield Equipped ", EquipManager.instance.currentEquip[1].idItem);
+        if (equipManager.currentEquip[1] != null) {
+            PlayerPrefs.SetInt("Shield Equipped ", equipManager.currentEquip[1].idItem);
         }
 
     }
@@ -90,8 +104,8 @@ public class SavePlayerPrefs : MonoBehaviour
         if (player != null) {
 
             if (PlayerPrefs.GetInt("Has Saved Once") == 1) {
-                GameworldManager.instance.respawnPoint = new Vector2(PlayerPrefs.GetFloat("RespawnPoint.x"), PlayerPrefs.GetFloat("RespawnPoint.y"));
-                player.transform.position = GameworldManager.instance.respawnPoint;
+                manager.respawnPoint = new Vector2(PlayerPrefs.GetFloat("RespawnPoint.x"), PlayerPrefs.GetFloat("RespawnPoint.y"));
+                player.transform.position = manager.respawnPoint;
 
 
                
@@ -108,48 +122,48 @@ public class SavePlayerPrefs : MonoBehaviour
 
                     switch(PlayerPrefs.GetInt("Item Slot " + i)) {
                         case 7:
-                            Inventory.instance.items.Add(equip[7]);
+                            inventory.items.Add(equip[7]);
                             break;
 
                         case 6:
-                            Inventory.instance.items.Add(equip[6]);
+                            inventory.items.Add(equip[6]);
                             break;
 
                         case 5:
-                            Inventory.instance.items.Add(equip[5]);
+                            inventory.items.Add(equip[5]);
                             break;
 
                         case 4:
-                            Inventory.instance.items.Add(equip[4]);
+                            inventory.items.Add(equip[4]);
                             break;
 
                         case 3:
-                            Inventory.instance.items.Add(equip[3]);
+                            inventory.items.Add(equip[3]);
                             break;
 
                         case 2:
-                            Inventory.instance.items.Add(equip[2]);
+                            inventory.items.Add(equip[2]);
                             break;
 
                         case 1:
-                            Inventory.instance.items.Add(equip[1]);
+                            inventory.items.Add(equip[1]);
                             break;
 
                         case 0:
-                            Inventory.instance.items.Add(equip[0]);
+                            inventory.items.Add(equip[0]);
                             break;
 
                         default:
-                            Inventory.instance.items.Add(equip[0]);
+                            inventory.items.Add(equip[0]);
                             break;
                     }
                 }
 
-                EquipManager.instance.currentEquip[0] = equipment[PlayerPrefs.GetInt("Weapon Equipped ")];
-                EquipManager.instance.currentEquip[1] = equipment[PlayerPrefs.GetInt("Shield Equipped ")];
+                equipManager.currentEquip[0] = equipment[PlayerPrefs.GetInt("Weapon Equipped ")];
+                equipManager.currentEquip[1] = equipment[PlayerPrefs.GetInt("Shield Equipped ")];
 
-                StatsManager.instance.died = PlayerPrefs.GetInt("Number of death(s)");
-                StatsManager.instance.playTime = PlayerPrefs.GetFloat("Number of death(s)");
+                stats.died = PlayerPrefs.GetInt("Number of death(s)");
+                stats.playTime = PlayerPrefs.GetFloat("Number of death(s)");
             }
         }
         StartCoroutine(EnableLvlUp());
@@ -158,7 +172,7 @@ public class SavePlayerPrefs : MonoBehaviour
     public IEnumerator EnableLvlUp()
     {
         yield return new WaitForSeconds(5f);
-        StatsManager.instance.isLoadingPrefs = false;
+        stats.isLoadingPrefs = false;
     }
 
 }

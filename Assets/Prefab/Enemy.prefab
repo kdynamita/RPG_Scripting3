@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3372589757732887570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.734, y: 0.2649999, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4231370053467916583}
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1320235989}
   - component: {fileID: 1320235991}
   - component: {fileID: 629798825}
+  - component: {fileID: 80757000}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -132,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eState: 0
   player: {fileID: 0}
+  aiPath: {fileID: 0}
   stats:
     type: Soldier
     lvl: 1
@@ -144,6 +146,7 @@ MonoBehaviour:
     spd: 350
   atkDelay: 1
   atkRecover: 2
+  moveSpd: 40
   minRange: 3
   maxRange: 3
   atkCount: 1
@@ -153,11 +156,13 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 4a0b3d072a8f2234e9e25d8788eb77a1, type: 2}
   shield: {fileID: 0}
   item: {fileID: 11400000, guid: 218ed5ad156c7994db7ef99c21c31ede, type: 2}
+  anim: {fileID: 0}
+  corpse: {fileID: 21300000, guid: 56a08625c6526c042979bb6c168e3285, type: 3}
+  unitPrompt: {fileID: 3372589757732887570}
   minDrop: 25
   unitIndex: 0
   hasLeveled: 0
-  anim: {fileID: 0}
-  corpse: {fileID: 21300000, guid: 56a08625c6526c042979bb6c168e3285, type: 3}
+  minRangeAlert: 0
 --- !u!61 &902635108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -220,7 +225,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1645543649
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -2203203849147262665, guid: d9eee112524e54c4aa34574444b552b2,
     type: 3}
@@ -249,7 +254,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -269,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   drawGizmos: 1
-  detailedGizmos: 1
+  detailedGizmos: 0
   startEndModifier:
     addPoints: 0
     exactStartPoint: 3
@@ -302,6 +307,42 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &80757000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231370053467916577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 0.5
+  height: 2
+  repathRate: 0.5
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 4
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 1
+  enableRotation: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 4
+  pickNextWaypointDist: 5
+  endReachedDistance: 4
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
 --- !u!1 &8241765158089093407
 GameObject:
   m_ObjectHideFlags: 0

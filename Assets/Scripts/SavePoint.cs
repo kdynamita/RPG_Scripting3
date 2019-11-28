@@ -37,7 +37,7 @@ public class SavePoint : MonoBehaviour
     void ConfirmSave() {
         if (Input.GetKeyDown(KeyCode.K)) {
             if (!hasSaved && isIn) {
-                GameworldManager.instance.respawnPoint = spawnPoint.transform.position;
+                Toolbox.GetInstance().GetManager().respawnPoint = spawnPoint.transform.position;
                 spriteSlot.sprite = saving;
                 hasSaved = true;
                 StartCoroutine(SaveFinished());

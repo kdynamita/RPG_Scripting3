@@ -42,20 +42,9 @@ public class PlayerAction : MonoBehaviour
 
     void SetDirection()
     {
-        // move player up
-        if (Input.GetKey(input.up))
-        {
-            moveDir += Vector3.up;
-        }
-
-        // move player down
-        else if (Input.GetKey(input.down))
-        {
-            moveDir += Vector3.down;
-        }
 
         //move player left
-        else if (Input.GetKey(input.left))
+        if (Input.GetKey(input.left))
         {
             // turn player to right
             rotation = new Vector3(0f, 180f, 0f);
@@ -73,7 +62,7 @@ public class PlayerAction : MonoBehaviour
         //stop movement
         else
         {
-            moveDir = Vector3.zero;
+            moveDir = new Vector2(0f, moveDir.y);
         }
 
         moveDir = moveDir.normalized;

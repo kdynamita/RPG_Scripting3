@@ -5,16 +5,8 @@ using UnityEngine.UI;
 
 public class StatsManager : MonoBehaviour
 {
-    // * I know I shouldn't use multiple singletons, but I've been scrambling just to get this done, been too sick <_> * 
-    #region - - - - - Singleton - - - - - 
-    public static StatsManager instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-    #endregion
-
+    public EquipManager equip;
+    public GameworldManager manager;
 
     public GameObject player;
     public PlayerController playerController;
@@ -32,7 +24,13 @@ public class StatsManager : MonoBehaviour
 
     void Start()
     {
+        //StartCoroutine(LateStart());
+    }
 
+    public IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(1f);
+        equip = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>() ;
     }
 
     void Update()
@@ -75,13 +73,13 @@ public class StatsManager : MonoBehaviour
             // - - - - Check if there's a weapon equipped - - - - - 
             // - - - If there is one, then assign the icon - - -
             if (eWpn.sprite != null) {
-                eWpn.sprite = EquipManager.instance.currentEquip[0].icon;
+                eWpn.sprite = equip.currentEquip[0].icon;
             }
 
             // - - - - Check if there's a shield equipped - - - - - 
             // - - - If there is one, then assign the icon - - -
             if (eShield.sprite != null) {
-                eShield.sprite = EquipManager.instance.currentEquip[1].icon;
+                eShield.sprite = equip.currentEquip[1].icon;
             }
 
             #endregion
@@ -141,7 +139,7 @@ public class StatsManager : MonoBehaviour
                     unit.Remove(unit[i]);
                     i = 0;
                 }
-            }
+            } manager.unit = this.unit;
         } else { return; }
         #endregion
     }
@@ -175,7 +173,7 @@ public class StatsManager : MonoBehaviour
 
                     playerController.stats.dex += 1;
                     playerController.stats.def += 1;
-                    GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.lvlPrompt;
+                    manager.playerPrompt.sprite = manager.lvlPrompt;
                 }
             }
         }
@@ -188,6 +186,8 @@ public class StatsManager : MonoBehaviour
                 Enemy unitLvlUp = unit[i].GetComponent<Enemy>();
                 if (unitLvlUp.stats.exp >= unitLvlUp.stats.lvlUp) {
                     EnemyLevelUp(unitLvlUp);
+
+                    manager.ApplyPrompt(manager.unit[i].GetComponent<Enemy>().unitPrompt.GetComponent<SpriteRenderer>().sprite = manager.lvlPrompt);
                 }
             }
         }

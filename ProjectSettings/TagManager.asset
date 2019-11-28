@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - Projectile
   - Save
+  - Manager
   layers:
   - Default
   - TransparentFX

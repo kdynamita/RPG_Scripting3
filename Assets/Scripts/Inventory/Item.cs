@@ -18,7 +18,7 @@ public class Item : ScriptableObject
 
     public virtual void Use()
     {
-        PlayerController player = StatsManager.instance.player.GetComponent<PlayerController>();
+        PlayerController player = Toolbox.GetInstance().GetStats().player.GetComponent<PlayerController>();
 
         if (player.stats.hp < player.stats.maxHp) {
             player.stats.hp += potency;
@@ -30,6 +30,6 @@ public class Item : ScriptableObject
 
     public void RemoveFromInventory()
     {
-        Inventory.instance.RemoveItem(this);
+        Toolbox.GetInstance().GetInventory().RemoveItem(this);
     }
 }

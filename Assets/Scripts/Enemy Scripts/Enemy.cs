@@ -9,11 +9,12 @@ public class Enemy : MonoBehaviour
     public state eState;
     [Space]
     public GameObject player;
-    //public AIPath aiPath;
+    public AIPath aiPath;
     public Stats stats;
     [Space]
     public float atkDelay;
     public float atkRecover;
+    public float moveSpd;
     [Space]
     private float nextWaypoint;
     public float minRange;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     public int atkCount;
     public int maxAtkCount;
     public float projectileSpd;
+
     [Space]
     Path path;
     int currentWaypoint = 0;
@@ -35,15 +37,19 @@ public class Enemy : MonoBehaviour
     public Equip weapon;
     public Equip shield;
     public Item item;
+    public Animator anim;
+    public Sprite corpse;
+    public GameObject unitPrompt;
     [Space]
     public int minDrop;
-
     public int unitIndex = 0;
     public bool hasLeveled;
+    [Space]
+    public float minRangeAlert;
 
-    public Animator anim;
 
-    public Sprite corpse;
+
+
 
     void Start()
     {
@@ -51,9 +57,9 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        if (eState != state.dead) { 
-            InvokeRepeating("UpdatePath", 0f, 0.5f);
-        }
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
+
+ 
     }
 
 
@@ -80,7 +86,7 @@ public class Enemy : MonoBehaviour
     void AssignPlayer()
     {
         if (player == null) {
-            player = StatsManager.instance.player;
+            player = Toolbox.GetInstance().GetStats().player;
         }
     }
 
@@ -107,25 +113,28 @@ public class Enemy : MonoBehaviour
             //transform.localScale = new Vector3(1f, 1f, 1f);
             rotation = new Vector3(0f, 0f, 0f);
         }
+        
         /*
         if (aiPath.desiredVelocity.x >= 0.01f) {
             transform.localScale = new Vector3(1f, 1f, 1f);
         } else if (aiPath.desiredVelocity.x <= -0.01f) {
             transform.localScale = new Vector3(-1f, 1f, 1f);
-        } */
-
+        }  */
+         
     }
+
 
     void UpdatePath()
     {
         if (seeker.IsDone()) {
-            seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+                seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
         }
     }
 
 
     public void Movement()
     {
+
         if (path == null || player.GetComponent<PlayerController>().pState == state.dead || eState == state.dead || eState == state.attacking) {
             return;
         }
@@ -142,7 +151,9 @@ public class Enemy : MonoBehaviour
         Vector2 force = direction * stats.spd * Time.deltaTime;
 
 
-        rb.AddForce(force);
+        //rb.AddForce(force);
+        rb.velocity = new Vector2(force.x * moveSpd * Time.deltaTime, 0f);
+
 
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -153,13 +164,13 @@ public class Enemy : MonoBehaviour
             if (distance2Player < nextWaypoint) {
                 rb.velocity = Vector2.zero;
                 if (atkCount > 0 || eState != state.dead) {
-                    StartCoroutine(Attack());
+                    if (rb.velocity == Vector2.zero) {
+                        StartCoroutine(Attack());
+                    }
                 }
-            } else {
                 currentWaypoint++;
             }
         }
-
     }
 
     public virtual IEnumerator Attack()
@@ -175,6 +186,7 @@ public class Enemy : MonoBehaviour
 
                 GameObject go = new GameObject("Arrow");
 
+                rb.velocity = Vector2.zero;
                 go.tag = "Projectile";
                 go.layer = LayerMask.NameToLayer("EnemyAttack");
 
@@ -188,7 +200,7 @@ public class Enemy : MonoBehaviour
                 Projectile goProjectile = go.GetComponent<Projectile>();
 
                 goProjectile.autoDestroyDelay = 5f;
-                goProjectile.damage = stats.dex + weapon.damage; //+ EquipManager.instance.currentEquip[0].damage;
+                goProjectile.damage = stats.dex + weapon.damage;
                 goProjectile.owner = this.gameObject;
                 goProjectile.speed = projectileSpd;
 
@@ -275,9 +287,6 @@ public class Enemy : MonoBehaviour
         go.AddComponent<SpriteRenderer>().sprite = corpse;
         go.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
         go.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-
-
 
 
 

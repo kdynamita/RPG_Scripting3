@@ -11,6 +11,7 @@ public enum state
     climbing,
     dead,
     attacking,
+    recovering,
     #endregion
 }
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     public bool paused;
     public bool canClimb;
-    public bool isReviving;
+
     [Space]
     public float shootDelay;
     public int shootCount;
@@ -111,12 +112,11 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Shoot()
     {
-
-        Equip eShld = EquipManager.instance.currentEquip[0];
+        Equip eWpn = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[0];
 
         if (action.attack && shootCount > 0 && 
             pState != state.blocking && pState != state.dead && 
-            eShld != null) {
+            eWpn != null) {
 
             shootCount -= 1;
 
@@ -137,9 +137,10 @@ public class PlayerController : MonoBehaviour
             go.AddComponent<Projectile>();
             Projectile goProjectile = go.GetComponent<Projectile>();
 
-            goProjectile.autoDestroyDelay = 3f;
-            goProjectile.damage = stats.dex + eShld.damage;
+            goProjectile.autoDestroyDelay = 5f;
+            goProjectile.damage = stats.dex + eWpn.damage;
             goProjectile.owner = this.gameObject;
+            goProjectile.speed = 2f;
 
             go.AddComponent<Rigidbody2D>();
             go.GetComponent<Rigidbody2D>().gravityScale = 0f;
@@ -151,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
             // - - - - Add SpriteRenderer & assign the sprite based on inventory's eShldped Weapon
             go.AddComponent<SpriteRenderer>();
-            go.GetComponent<SpriteRenderer>().sprite = eShld.icon;
+            go.GetComponent<SpriteRenderer>().sprite = eWpn.icon;
             go.GetComponent<SpriteRenderer>().sortingLayerName = "Units";
             go.GetComponent<SpriteRenderer>().sortingOrder = 5;
 
@@ -164,27 +165,37 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void ChangeColor()
+    {
+        
+    }
+
     public virtual void Block()
     {
-        Equip eWpn = EquipManager.instance.currentEquip[1];
+        Equip eShld = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[1];
 
-        if (action.defend && eWpn != null) {
+        if (action.defend && eShld != null) {
 
 
             if (realTimer < timerLimit) {
                 realTimer += Time.deltaTime;
+                this.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(292, 63, 50);
+            } else if (realTimer >= timerLimit){
+                this.GetComponent<SpriteRenderer>().color = Color.white;
             }
 
 
             rb.velocity = Vector2.zero;
-            blockDef = stats.def + eWpn.defense;
+            blockDef = stats.def + eShld.defense;
             pState = state.blocking;
             anim.SetBool("isBlocking", true);
+
         }
 
         else {
             pState = state.idle;
             anim.SetBool("isBlocking", false);
+            this.GetComponent<SpriteRenderer>().color = Color.white;
 
             if (realTimer > 0) {
                 StartCoroutine(ParryCo());
@@ -220,14 +231,14 @@ public class PlayerController : MonoBehaviour
         pState = state.dead;
         anim.SetBool("isDead", true);
         this.gameObject.layer = LayerMask.NameToLayer("Dead");
-        Inventory.instance.canUse = false;
+        Toolbox.GetInstance().GetInventory().GetComponent<Inventory>().canUse = false;
         StartCoroutine(DeathCo());
     }
 
     public IEnumerator DeathCo()
     {
-        StatsManager.instance.CheckEnemyLevelUp();
-        yield return new WaitForSeconds(3.5f);
+        Toolbox.GetInstance().GetStats().GetComponent<StatsManager>().CheckEnemyLevelUp();
+        yield return new WaitForSeconds(3f);
         Revive();
 
     }
@@ -236,26 +247,24 @@ public class PlayerController : MonoBehaviour
     {
         if (pState == state.idle) {
             return;
-        } else {
-            isReviving = false;
-            //GameworldManager.instance.Respawn();
+        } 
+        
+        else {
+            Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().Respawn();
             stats.hp = stats.maxHp;
             anim.SetBool("isDead", false);
             pState = state.idle;
             gameObject.layer = LayerMask.NameToLayer("Player");
-            Inventory.instance.canUse = true;
-
+            Toolbox.GetInstance().GetInventory().GetComponent<Inventory>().canUse = true;
         }
-
     }
-
 
     #region - Trigger Functions - 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Interactable")) {
-            other.GetComponent<Interactable>().Pickup();
-            GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.itemPrompt;
+            other.GetComponent<Interactable>()?.Pickup();
+            Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().itemPrompt;
         }
 
 
@@ -263,16 +272,16 @@ public class PlayerController : MonoBehaviour
             
             if (pState == state.blocking && realTimer < timerLimit) {
                 stats.hp += other.GetComponent<Projectile>().damage+1;
-                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.parryPrompt;
+                Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().parryPrompt;
             } 
             
             else if (pState == state.blocking && realTimer >= timerLimit) {
-                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.blockPrompt;
+                Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().blockPrompt;
             } 
             
             else {
-                StatsManager.instance.UpdateStats();
-                GameworldManager.instance.playerPrompt.sprite = GameworldManager.instance.hurtPrompt;
+                Toolbox.GetInstance().GetStats().GetComponent<StatsManager>().UpdateStats();
+                Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().hurtPrompt;
             }
         }
     }

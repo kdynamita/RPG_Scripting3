@@ -25,7 +25,7 @@ public class InventoryUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = Inventory.instance;
+        inventory = Toolbox.GetInstance().GetInventory().GetComponent<Inventory>();
         inventory.OnItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
@@ -52,8 +52,8 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateStatsUI()
     {
-        Equip currentWpn = EquipManager.instance.currentEquip[0];
-        Equip currentShld = EquipManager.instance.currentEquip[1];
+        Equip currentWpn = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[0];
+        Equip currentShld = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[1];
 
         lvlText.text = player.stats.lvl.ToString();
         hpText.text = player.stats.hp + " / " + player.stats.maxHp;
@@ -67,13 +67,13 @@ public class InventoryUI : MonoBehaviour
         }
 
         if (currentWpn != null) {
-            dexText.text = (player.stats.dex + EquipManager.instance.currentEquip[0].damage).ToString();
+            dexText.text = (player.stats.dex + Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[0].damage).ToString();
             wpnSprite.sprite = currentWpn.icon;
             wpnHud.sprite = wpnSprite.sprite;
         }
 
         if (currentShld != null) {
-            defText.text = (player.stats.def + EquipManager.instance.currentEquip[1].defense).ToString();
+            defText.text = (player.stats.def + Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[1].defense).ToString();
             shldSprite.sprite = currentShld.icon;
             shldHud.sprite = shldSprite.sprite;
         }
