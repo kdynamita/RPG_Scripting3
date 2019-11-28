@@ -14,6 +14,7 @@ public class Item : ScriptableObject
     [Space]
     [TextArea(4, 20)] public string iText;
     public int potency;
+    public int idItem;
 
     public virtual void Use()
     {

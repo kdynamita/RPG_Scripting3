@@ -11,6 +11,7 @@ TagManager:
   - Interactable
   - Ground
   - Projectile
+  - Save
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1749364669
+    locked: 0
+  - name: Units
+    uniqueID: 2649423647
+    locked: 0
+  - name: Items
+    uniqueID: 3025000613
     locked: 0

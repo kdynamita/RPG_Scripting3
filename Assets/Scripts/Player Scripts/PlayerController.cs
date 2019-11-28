@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour
             if (pState == state.blocking && realTimer < timerLimit) {
                 stats.hp += other.GetComponent<Projectile>().damage+1;
             } else {
-                StatsManager.instance.CheckStats();
+                StatsManager.instance.UpdateStats();
             }
         }
     }

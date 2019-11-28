@@ -24,6 +24,10 @@ public class StatsManager : MonoBehaviour
     public Image eWpn;
     public Image eShield;
 
+    public int died;
+    public float playTime;
+    public int totalKills;
+
     void Start()
     {
 
@@ -32,7 +36,7 @@ public class StatsManager : MonoBehaviour
     void FixedUpdate()
     {
         FindTargets();
-        CheckStats();
+        UpdateStats();
     }
 
 
@@ -55,20 +59,16 @@ public class StatsManager : MonoBehaviour
         }
     }
 
-    public void Heal(int heal)
-    {
-
-    }
-
-
-
     #region - - - - - Check Stats & Level Up Functions - - - - - 
-    public void CheckStats()
+    public void UpdateStats()
     {
+        playTime += Time.deltaTime;
+
         #region - - - - - Updating Player Stats/Equips- - - - - 
         // - - - - - Run only if there is a player character available - - - - - 
         if (player != null) {
 
+            #region - - - - - Update Exp & Equip Icons - - - - 
             // - - - - - Update exp & next level exp required - - - - - 
             int exp = playerController.stats.exp;
             int nextLvl = playerController.stats.lvlUp;
@@ -85,8 +85,10 @@ public class StatsManager : MonoBehaviour
                 eShield.sprite = EquipManager.instance.currentEquip[1].icon;
             }
 
+            #endregion
 
-            // - - - - - HUD Text for hp / maxHp - - - - - 
+            #region  - - - - - HUD Text for hp / maxHp - - - - - 
+
             if (playerController.stats.hp < 0) {
                 playerController.stats.hp = 0;
                 hudHp.text = "HP: " + playerController.stats.hp + " / " + playerController.stats.maxHp;
@@ -100,8 +102,9 @@ public class StatsManager : MonoBehaviour
             else {
                 hudHp.text = "HP: " + playerController.stats.hp + " / " + playerController.stats.maxHp;
             }
+            #endregion
 
-
+            #region - - - - - Exp & Level Up (Player & Enemy) - - - - -
             // - - - - - If Exp requirement is met, level up character - - - - - 
             if (exp >= nextLvl) {
                 LevelUp();
@@ -117,15 +120,17 @@ public class StatsManager : MonoBehaviour
                 if (!unit[playerController.slayer].GetComponent<Enemy>().hasLeveled) {
                     unit[playerController.slayer].GetComponent<Enemy>().hasLeveled = true;
                     unit[playerController.slayer].GetComponent<Enemy>().stats.exp += playerController.stats.lvl;
+                    died += 1;
+
                 } else {
                     return;
                 }
             }
+            #endregion
 
         }
 
         #endregion
-
 
         #region - - - - - Checking & Updating Enemy - - - - - 
         // - - - - - Check if there's any enemy on the map - - - - - 
