@@ -11,11 +11,12 @@ public class SplashScreen : MonoBehaviour
 
     void Start()
     {
+        GoToNextScreen();
     }
 
     void Update()
     {
-        GoToNextScreen();
+
     }
 
     void GoToNextScreen()
@@ -25,7 +26,6 @@ public class SplashScreen : MonoBehaviour
 
     public IEnumerator NextScreen() {
         yield return new WaitForSeconds(transition);
-
-       ;
+        SceneManager.LoadScene("Start");
     }
 }

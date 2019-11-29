@@ -59,8 +59,8 @@ MonoBehaviour:
     lvl: 3
     exp: 10
     lvlUp: 11
-    hp: 20
-    maxHp: 20
+    hp: 24
+    maxHp: 24
     dex: 5
     def: 5
     spd: 325
@@ -245,7 +245,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 8
+  maxSpeed: 6
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2

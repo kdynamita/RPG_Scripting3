@@ -187,8 +187,9 @@ public class Enemy : MonoBehaviour
                 GameObject go = new GameObject("Arrow");
 
                 rb.velocity = Vector2.zero;
-                go.tag = "Projectile";
                 go.layer = LayerMask.NameToLayer("EnemyAttack");
+                go.tag = "Projectile";
+          
 
 
                 go.transform.position = bulletSpawn.transform.position;
@@ -250,12 +251,16 @@ public class Enemy : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Dead");
 
         player.GetComponent<PlayerController>().stats.exp = stats.exp;
+        Debug.Log("Earned " + stats.exp);
+
         if (item != null) {
             int dropChance = Random.Range(0, 100);
 
             if (dropChance < minDrop) {
                 GameObject go = new GameObject("Drop");
                 go.tag = "Interactable";
+                go.layer = LayerMask.NameToLayer("Interactable");
+
                 go.transform.position = this.transform.position;
 
                 go.AddComponent<Interactable>();

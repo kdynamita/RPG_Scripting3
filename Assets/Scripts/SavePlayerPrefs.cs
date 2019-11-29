@@ -27,13 +27,10 @@ public class SavePlayerPrefs : MonoBehaviour
 
         equipManager = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>();
         eInventory = Toolbox.GetInstance().GeteInventory().GetComponent<EnemyInventory>();
-    }
 
-    public IEnumerator LateStart()
-    {
-        yield return new WaitForSeconds(0.001f);
         LoadPrefs();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -61,6 +58,9 @@ public class SavePlayerPrefs : MonoBehaviour
         PlayerPrefs.SetInt("NextLvl", player.stats.lvlUp);
         PlayerPrefs.SetInt("Dex", player.stats.dex);
         PlayerPrefs.SetInt("Def", player.stats.def);
+        PlayerPrefs.SetInt("MaxHP", player.stats.maxHp);
+        PlayerPrefs.SetInt("HP", player.stats.hp);
+
 
         // - - - Saving General Game Stats
         PlayerPrefs.SetInt("Number of death(s)", stats.died);
@@ -109,11 +109,17 @@ public class SavePlayerPrefs : MonoBehaviour
 
 
                
-                    player.stats.lvl = PlayerPrefs.GetInt("Level");
-                    player.stats.exp = PlayerPrefs.GetInt("NextLvl");
-                    player.stats.exp = PlayerPrefs.GetInt("Exp");
-                    //player.stats.dex = PlayerPrefs.GetInt("Dex");
-                    //player.stats.def = PlayerPrefs.GetInt("Def");
+                player.stats.lvl = PlayerPrefs.GetInt("Level");
+                player.stats.exp = PlayerPrefs.GetInt("NextLvl");
+                player.stats.hp = PlayerPrefs.GetInt("MaxHP");
+                player.stats.hp = PlayerPrefs.GetInt("HP");
+                player.stats.dex = PlayerPrefs.GetInt("Dex");
+                player.stats.def = PlayerPrefs.GetInt("Def");
+                player.stats.exp = PlayerPrefs.GetInt("Exp");
+
+
+
+
 
                 // - - - - Loading the size of the inventory - - - - - 
 

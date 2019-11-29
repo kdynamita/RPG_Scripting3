@@ -26,7 +26,9 @@ public class GameworldManager : MonoBehaviour
     public List<GameObject> unit;
     public List<Sprite> unitPrompt;
 
-    public List<float> unitTimer;
+
+    public Transform firstRespawnPoint;
+    //public List<float> unitTimer;
 
     #endregion
 
@@ -36,6 +38,7 @@ public class GameworldManager : MonoBehaviour
     {
         stats = Toolbox.GetInstance().GetStats().GetComponent<StatsManager>();
         player = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().player;
+        respawnPoint = firstRespawnPoint.position;
     
     }
 
@@ -97,15 +100,15 @@ public class GameworldManager : MonoBehaviour
                     }
 
                     // if prompt isn't empty, start counting
-                    if (unitPrompt[i] != null) {
-                        unitTimer[i] += Time.deltaTime;
-                    }
+                    //if (unitPrompt[i] != null) {
+                    //    unitTimer[i] += Time.deltaTime;
+                    //}
 
                     // If unitTimer reached maxPTimer, unitPrompt[i] will do wonderfully for now
-                    if (unitTimer[i] >= maxPtimer) {
-                        unitPrompt[i] = null;
-                    }
-                    unitTimer[i] = 0f;
+                    //if (unitTimer[i] >= maxPtimer) {
+                    //    unitPrompt[i] = null;
+                    //}
+                    //unitTimer[i] = 0f;
                 }
             }
         }

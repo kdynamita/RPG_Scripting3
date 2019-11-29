@@ -46,6 +46,7 @@ public class GameOptions : MonoBehaviour
     public void LoadGame()
     {
         // Disabled until there's playerprefs saved?
+        SceneManager.LoadScene("Play");
     }
 
     public void Options()

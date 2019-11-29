@@ -117,6 +117,7 @@ public class StatsManager : MonoBehaviour
                 if (!unit[playerController.slayer].GetComponent<Enemy>().hasLeveled) {
                     unit[playerController.slayer].GetComponent<Enemy>().hasLeveled = true;
                     unit[playerController.slayer].GetComponent<Enemy>().stats.exp += playerController.stats.lvl;
+                    unit[playerController.slayer].GetComponent<SpriteRenderer>().color = Color.blue;
                     died += 1;
 
                 } else {
@@ -160,17 +161,16 @@ public class StatsManager : MonoBehaviour
     {
         if (isLoadingPrefs) {
             return;
-        } else {
+        } 
+        
+        else {
             if (playerController.pState != state.dead || !isLoadingPrefs) {
-                Debug.Log("Called LevelUp");
-                if (playerController.pState != state.dead) {
-                    Debug.Log("Applying level up");
-                    playerController.stats.lvlUp *= 2;
 
+                if (playerController.pState != state.dead) {
+                    playerController.stats.lvlUp *= 2;
                     playerController.stats.lvl += 1;
                     playerController.stats.maxHp += 5;
                     playerController.stats.hp += 5;
-
                     playerController.stats.dex += 1;
                     playerController.stats.def += 1;
                     manager.playerPrompt.sprite = manager.lvlPrompt;
