@@ -119,14 +119,14 @@ public class GameworldManager : MonoBehaviour
         }
     }
 
-    public void ManageEnemyPositions()
-    {
-        if (unit != null) {
-            for (int i = 0; i < unit.Count; i++) {
-                enemyPosition[i] = unit[i].transform.position;
-            }
-        }
-    }
+    //public void ManageEnemyPositions()
+    //{
+    //    if (unit != null) {
+    //        for (int i = 0; i < unit.Count; i++) {
+    //            enemyPosition[i] = unit[i].transform.position;
+    //        }
+    //    }
+    //}
 
     void Spawn()
     {

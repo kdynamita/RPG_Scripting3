@@ -31,7 +31,7 @@ public class SavePoint : MonoBehaviour
     }
 
     public void Save() {
-        Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().ManageEnemyPositions();
+        //Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().ManageEnemyPositions();
 
         savePrefs.Save();
     }
