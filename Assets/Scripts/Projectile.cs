@@ -49,6 +49,7 @@ public class Projectile : MonoBehaviour
 
         if (other.CompareTag("Enemy")) {
             other.GetComponent<Enemy>().stats.hp -= damage;
+            other.GetComponent<Enemy>().unitPrompt.GetComponent<SpriteRenderer>().sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().hurtPrompt;
             other.GetComponent<Enemy>().CheckStats();
 
         } else if (other.CompareTag("Player")) {

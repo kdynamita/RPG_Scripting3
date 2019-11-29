@@ -15,6 +15,7 @@ public class TriggerEvent : MonoBehaviour
     public virtual void Trigger()
     {
         //Override stuff here
+
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)

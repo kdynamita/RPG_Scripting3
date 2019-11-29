@@ -22,30 +22,31 @@ public class GameOptions : MonoBehaviour
     }
 
     public void PauseGame() {
-
-        if (!paused) {
-            paused = true;
-            Time.timeScale = 0f;
-            pauseCanvas.SetActive(true);
-        } 
-        
-        else if (paused) {
-            paused = false;
-            Time.timeScale = 1f;
-            pauseCanvas.SetActive(false);
+        if (pauseCanvas != null) {
+            if (!paused) {
+                paused = true;
+                pauseCanvas.SetActive(true);
+                Time.timeScale = 0f;
+                Debug.Log(paused);
+            } else if (paused) {
+                paused = false;
+                pauseCanvas.SetActive(false);
+                Time.timeScale = 1f;
+                Debug.Log(paused);
+            }
         }
     }
 
-
     public void NewGame()
     {
-        // - - - Gotta clear player preferences first?
+        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("Play");
     }
 
     public void LoadGame()
     {
         // Disabled until there's playerprefs saved?
+        Time.timeScale = 1;
         SceneManager.LoadScene("Play");
     }
 
@@ -62,7 +63,7 @@ public class GameOptions : MonoBehaviour
 
     public void BackToStart()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Start");
     }
-
 }

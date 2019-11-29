@@ -68,10 +68,10 @@ MonoBehaviour:
   atkRecover: 1.25
   moveSpd: 50
   minRange: 4
-  maxRange: 8
+  maxRange: 10
   atkCount: 1
   maxAtkCount: 1
-  projectileSpd: 0.75
+  projectileSpd: 0.85
   bulletSpawn: {fileID: 6498176103249844606}
   weapon: {fileID: 11400000, guid: 7745591506d05db45ab2dc644d09bf14, type: 2}
   shield: {fileID: 0}
@@ -82,7 +82,8 @@ MonoBehaviour:
   minDrop: 35
   unitIndex: 3
   hasLeveled: 0
-  minRangeAlert: 0
+  minRangeAlert: 40
+  isAlert: 0
 --- !u!61 &2904409451886409221
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,7 +147,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1645543649
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -6248741079362886434, guid: 0dea3f14dd635d743bca94c442be1936,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -318,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8773851044151580250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.21, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1366369315696845126}

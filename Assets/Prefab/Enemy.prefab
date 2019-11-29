@@ -147,11 +147,11 @@ MonoBehaviour:
   atkDelay: 1
   atkRecover: 2
   moveSpd: 40
-  minRange: 3
-  maxRange: 3
+  minRange: 2
+  maxRange: 5
   atkCount: 1
   maxAtkCount: 1
-  projectileSpd: 0.5
+  projectileSpd: 0.65
   bulletSpawn: {fileID: 8241765158089093407}
   weapon: {fileID: 11400000, guid: 4a0b3d072a8f2234e9e25d8788eb77a1, type: 2}
   shield: {fileID: 0}
@@ -162,7 +162,8 @@ MonoBehaviour:
   minDrop: 25
   unitIndex: 0
   hasLeveled: 0
-  minRangeAlert: 0
+  minRangeAlert: 20
+  isAlert: 0
 --- !u!61 &902635108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -226,7 +227,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1645543649
   m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2203203849147262665, guid: d9eee112524e54c4aa34574444b552b2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -28,7 +28,10 @@ public class GameworldManager : MonoBehaviour
 
 
     public Transform firstRespawnPoint;
-    //public List<float> unitTimer;
+    public List<float> unitTimer;
+    [Space]
+    public Vector3[] enemyPosition;
+
 
     #endregion
 
@@ -81,11 +84,11 @@ public class GameworldManager : MonoBehaviour
 
     public void ManageEnemyPrompt() {
     {
+
             //- - - - - Checks all enemy prompts
             if (stats != null) {
                 unit = Toolbox.GetInstance().GetStats().GetComponent<StatsManager>().unit;
             }
-
 
             for (int i = 0; i < unit.Count; i++) {
 
@@ -99,24 +102,36 @@ public class GameworldManager : MonoBehaviour
                         unit[i].GetComponent<Enemy>().unitPrompt.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     }
 
-                    // if prompt isn't empty, start counting
-                    //if (unitPrompt[i] != null) {
-                    //    unitTimer[i] += Time.deltaTime;
-                    //}
+                    if (unit[i].GetComponent<Enemy>().unitPrompt != null) {
+                        Debug.Log("Enemy " + i + " has a timer, start running timer");
+                        unitTimer[i] += Time.deltaTime;
+                    }
 
-                    // If unitTimer reached maxPTimer, unitPrompt[i] will do wonderfully for now
-                    //if (unitTimer[i] >= maxPtimer) {
-                    //    unitPrompt[i] = null;
-                    //}
-                    //unitTimer[i] = 0f;
+                     //If unitTimer reached maxPTimer, unitPrompt[i] will do wonderfully for now
+                    if (unitTimer[i] >= maxPtimer) {
+                        unitTimer[i] = 0f;
+                        unit[i].GetComponent<Enemy>().unitPrompt.GetComponent<SpriteRenderer>().sprite = null;
+                    }
+
+                // keeps getting out of index, my logic is wrong here
                 }
             }
         }
     }
 
-    void SpawnStuff()
+    public void ManageEnemyPositions()
     {
+        if (unit != null) {
+            for (int i = 0; i < unit.Count; i++) {
+                enemyPosition[i] = unit[i].transform.position;
+            }
+        }
+    }
 
+    void Spawn()
+    {
+        //Spawn Stuff here if you have time to code some more, but remember that you may be too exhausted after spending so many days without sleeping a wink
+    
     }
 
 }

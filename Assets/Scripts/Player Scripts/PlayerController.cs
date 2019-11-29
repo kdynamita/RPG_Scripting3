@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public float realTimer;
     public float parryReset;
     [Space]
-    public int slayer;
+    public GameObject slayer;
     public float reviveDelay;
 
     #endregion 
@@ -165,11 +165,6 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void ChangeColor()
-    {
-        
-    }
-
     public virtual void Block()
     {
         Equip eShld = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>().currentEquip[1];
@@ -262,6 +257,7 @@ public class PlayerController : MonoBehaviour
     #region - Trigger Functions - 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.CompareTag("Interactable")) {
             other.GetComponent<Interactable>()?.Pickup();
             Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().itemPrompt;
@@ -269,7 +265,9 @@ public class PlayerController : MonoBehaviour
 
 
         if (other.CompareTag("Projectile")) {
-            
+
+            slayer = other.GetComponent<Projectile>().owner.gameObject;
+
             if (pState == state.blocking && realTimer < timerLimit) {
                 stats.hp += other.GetComponent<Projectile>().damage+1;
                 Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().playerPrompt.sprite = Toolbox.GetInstance().GetManager().GetComponent<GameworldManager>().parryPrompt;

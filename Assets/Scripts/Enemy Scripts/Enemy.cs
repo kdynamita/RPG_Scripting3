@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
     public bool hasLeveled;
     [Space]
     public float minRangeAlert;
+    public bool isAlert = false;
 
 
 
@@ -58,8 +59,6 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
-
- 
     }
 
 
@@ -126,8 +125,19 @@ public class Enemy : MonoBehaviour
 
     void UpdatePath()
     {
+        if (Vector2.Distance(rb.position, player.transform.position) <= minRangeAlert) {
+            isAlert = true;
+        } else {
+            isAlert = false;
+        }
+
         if (seeker.IsDone()) {
+            if (player != null && isAlert) {
                 seeker.StartPath(rb.position, player.transform.position, OnPathComplete);
+            } 
+            
+            else { return;
+            }
         }
     }
 
@@ -250,7 +260,7 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isDead", true);
         gameObject.layer = LayerMask.NameToLayer("Dead");
 
-        player.GetComponent<PlayerController>().stats.exp = stats.exp;
+        player.GetComponent<PlayerController>().stats.exp += stats.exp;
         Debug.Log("Earned " + stats.exp);
 
         if (item != null) {

@@ -114,10 +114,10 @@ public class StatsManager : MonoBehaviour
 
             // - - - - - If the player is dead, award exp to enemy who did it - - - - 
             if (playerController.pState == state.dead) {
-                if (!unit[playerController.slayer].GetComponent<Enemy>().hasLeveled) {
-                    unit[playerController.slayer].GetComponent<Enemy>().hasLeveled = true;
-                    unit[playerController.slayer].GetComponent<Enemy>().stats.exp += playerController.stats.lvl;
-                    unit[playerController.slayer].GetComponent<SpriteRenderer>().color = Color.blue;
+                if (!playerController.slayer.GetComponent<Enemy>().hasLeveled) {
+                    playerController.slayer.GetComponent<Enemy>().hasLeveled = true;
+                    playerController.slayer.GetComponent<Enemy>().stats.exp += playerController.stats.lvl;
+                    playerController.slayer.GetComponent<SpriteRenderer>().color = Color.blue;
                     died += 1;
 
                 } else {
@@ -163,19 +163,23 @@ public class StatsManager : MonoBehaviour
             return;
         } 
         
-        else {
-            if (playerController.pState != state.dead || !isLoadingPrefs) {
+        else if (!isLoadingPrefs) {
 
-                if (playerController.pState != state.dead) {
-                    playerController.stats.lvlUp *= 2;
-                    playerController.stats.lvl += 1;
-                    playerController.stats.maxHp += 5;
-                    playerController.stats.hp += 5;
-                    playerController.stats.dex += 1;
-                    playerController.stats.def += 1;
-                    manager.playerPrompt.sprite = manager.lvlPrompt;
-                }
-            }
+            int currentNextLvl = playerController.stats.lvlUp;
+            int currentLevel = playerController.stats.lvl;
+            int currentMaxHp = playerController.stats.maxHp;
+            int currentHp = playerController.stats.hp;
+            int currentDex = playerController.stats.dex;
+            int currentDef = playerController.stats.def;
+
+
+            manager.playerPrompt.sprite = manager.lvlPrompt;
+            playerController.stats.lvlUp = currentNextLvl * 2;
+            playerController.stats.lvl = currentLevel + 1;
+            playerController.stats.maxHp = currentMaxHp + 5;
+            playerController.stats.hp = currentHp + 5;
+            playerController.stats.dex = currentDex + 1;
+            playerController.stats.def = currentDef + 1;
         }
     }
 
@@ -186,7 +190,6 @@ public class StatsManager : MonoBehaviour
                 Enemy unitLvlUp = unit[i].GetComponent<Enemy>();
                 if (unitLvlUp.stats.exp >= unitLvlUp.stats.lvlUp) {
                     EnemyLevelUp(unitLvlUp);
-
                     manager.ApplyPrompt(manager.unit[i].GetComponent<Enemy>().unitPrompt.GetComponent<SpriteRenderer>().sprite = manager.lvlPrompt);
                 }
             }

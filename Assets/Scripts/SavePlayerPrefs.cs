@@ -26,6 +26,7 @@ public class SavePlayerPrefs : MonoBehaviour
         inventory = Toolbox.GetInstance().GetInventory().GetComponent<Inventory>();
 
         equipManager = Toolbox.GetInstance().GetEquip().GetComponent<EquipManager>();
+
         eInventory = Toolbox.GetInstance().GeteInventory().GetComponent<EnemyInventory>();
 
         LoadPrefs();
@@ -59,7 +60,10 @@ public class SavePlayerPrefs : MonoBehaviour
         PlayerPrefs.SetInt("Dex", player.stats.dex);
         PlayerPrefs.SetInt("Def", player.stats.def);
         PlayerPrefs.SetInt("MaxHP", player.stats.maxHp);
+        Debug.Log("Current Max HP is " + PlayerPrefs.GetInt("Max HP"));
+
         PlayerPrefs.SetInt("HP", player.stats.hp);
+        Debug.Log("Current HP is " + PlayerPrefs.GetInt("HP"));
 
 
         // - - - Saving General Game Stats
@@ -97,8 +101,16 @@ public class SavePlayerPrefs : MonoBehaviour
             PlayerPrefs.SetInt("Shield Equipped ", equipManager.currentEquip[1].idItem);
         }
 
-    }
+        // - - - Saving Enemy Positions - - -
+        /*
+        for (int i=0; i<manager.unit.Count; i++) {
+            if (manager.enemyPosition != null) {
+                PlayerPrefs.SetFloat("Enemy " + i + " x position", manager.enemyPosition[i].x);
+                PlayerPrefs.SetFloat("Enemy " + i + " y position", manager.enemyPosition[i].y);
+            }
+        }*/
 
+    }
 
     public void LoadPrefs() {
         if (player != null) {
@@ -107,10 +119,9 @@ public class SavePlayerPrefs : MonoBehaviour
                 manager.respawnPoint = new Vector2(PlayerPrefs.GetFloat("RespawnPoint.x"), PlayerPrefs.GetFloat("RespawnPoint.y"));
                 player.transform.position = manager.respawnPoint;
 
-
-               
+                player.stats.lvlUp = PlayerPrefs.GetInt("NextLvl");
                 player.stats.lvl = PlayerPrefs.GetInt("Level");
-                player.stats.exp = PlayerPrefs.GetInt("NextLvl");
+
                 player.stats.hp = PlayerPrefs.GetInt("MaxHP");
                 player.stats.hp = PlayerPrefs.GetInt("HP");
                 player.stats.dex = PlayerPrefs.GetInt("Dex");
@@ -118,14 +129,9 @@ public class SavePlayerPrefs : MonoBehaviour
                 player.stats.exp = PlayerPrefs.GetInt("Exp");
 
 
-
-
-
                 // - - - - Loading the size of the inventory - - - - - 
 
                 for (int i = 0; i < PlayerPrefs.GetInt("The size of the inventory"); i++) {
-
-
                     switch(PlayerPrefs.GetInt("Item Slot " + i)) {
                         case 7:
                             inventory.items.Add(equip[7]);
@@ -168,8 +174,14 @@ public class SavePlayerPrefs : MonoBehaviour
                 equipManager.currentEquip[0] = equipment[PlayerPrefs.GetInt("Weapon Equipped ")];
                 equipManager.currentEquip[1] = equipment[PlayerPrefs.GetInt("Shield Equipped ")];
 
+
                 stats.died = PlayerPrefs.GetInt("Number of death(s)");
                 stats.playTime = PlayerPrefs.GetFloat("Number of death(s)");
+
+                /*
+                for (int i=0; i< manager.unit.Count; i++) {
+                    manager.unit[i].transform.position = new Vector2(PlayerPrefs.GetFloat(("Enemy " + i + " x position")), PlayerPrefs.GetFloat(("Enemy " + i + " y position")));
+                }*/
             }
         }
         StartCoroutine(EnableLvlUp());
@@ -177,8 +189,7 @@ public class SavePlayerPrefs : MonoBehaviour
 
     public IEnumerator EnableLvlUp()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         stats.isLoadingPrefs = false;
     }
-
 }
