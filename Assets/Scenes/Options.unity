@@ -630,7 +630,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "<b>- Controls - </b>\nMoving - WASD \nShoot - J \nBlock - K\nInteract -
-    K\nInventory - I"
+    K\nInventory - I\nPause - Space"
 --- !u!222 &895102996
 CanvasRenderer:
   m_ObjectHideFlags: 0
